@@ -51,8 +51,6 @@ public class DbHandler extends SQLiteOpenHelper {
     private static final String ALERT_NAME = "alertName";
     private static final String ALERT_DATE_TIME = "alertDateTime";
 
-    //testing
-
     public DbHandler(Context context){
         super(context,DB_NAME, null, DB_VERSION);
     }
