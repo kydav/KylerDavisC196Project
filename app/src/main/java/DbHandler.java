@@ -13,14 +13,44 @@ public class DbHandler extends SQLiteOpenHelper {
     private static final String TERM_START_DATE = "termStartDate";
     private static final String TERM_END_DATE = "termEndDate";
 
+    private static final String CREATE_TERM_TABLE =
+            "CREATE TABLE IF NOT EXISTS " + TABLE_TERM + " ("
+                    + TERM_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+                    + TERM_NAME + " TEXT, "
+                    + TERM_START_DATE + " DATE, "
+                    + TERM_END_DATE + " DATE" + ")";
+
     //Course Table
     private static final String TABLE_COURSE = "course";
     private static final String COURSE_ID = "courseId";
     private static final String COURSE_NAME = "courseName";
+    private static final String COURSE_DESCRIPTION = "courseDescription";
     private static final String COURSE_START_DATE = "courseStartDate";
     private static final String COURSE_END_DATE = "courseEndDate";
+    private static final String COURSE_MENTOR_ID = "courseMentorId";
     private static final String COURSE_STATUS_ID = "courseStatus";
     private static final String COURSE_TERM_ID = "courseTermId";
+
+    private static final String CREATE_COURSE_TABLE =
+            "CREATE TABLE IF NOT EXISTS " + TABLE_COURSE + " ("
+            + COURSE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+            + COURSE_NAME + " TEXT, "
+            + COURSE_DESCRIPTION + " TEXT, "
+            + COURSE_START_DATE + " DATE, "
+            + COURSE_END_DATE + " DATE, "
+            + COURSE_MENTOR_ID + " INTEGER, "
+            + COURSE_STATUS_ID + " INTEGER, "
+            + COURSE_TERM_ID + " INTEGER";
+
+    //Mentor Table
+    private static final String TABLE_MENTOR = "mentor";
+    private static final String MENTOR_ID = "mentorId";
+    private static final String MENTOR_NAME = "courseMentorName";
+    private static final String MENTOR_PHONE = "courseMentorPhone";
+    private static final String MENTOR_EMAIL = "courseMentorEmail";
+
+
+
 
     //Status Table
     private static final String TABLE_STATUS = "status";
