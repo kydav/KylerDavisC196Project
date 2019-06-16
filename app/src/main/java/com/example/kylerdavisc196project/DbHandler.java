@@ -1,3 +1,5 @@
+package com.example.kylerdavisc196project;
+
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
@@ -14,6 +16,7 @@ public class DbHandler extends SQLiteOpenHelper {
     private static final String TERM_START_DATE = "termStartDate";
     private static final String TERM_END_DATE = "termEndDate";
 
+    //Term Table Create
     private static final String CREATE_TERM_TABLE =
             "CREATE TABLE IF NOT EXISTS " + TABLE_TERM + " ("
                     + TERM_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
@@ -32,6 +35,7 @@ public class DbHandler extends SQLiteOpenHelper {
     private static final String COURSE_STATUS_ID = "courseStatus";
     private static final String COURSE_TERM_ID = "courseTermId";
 
+    //Course Table Create
     private static final String CREATE_COURSE_TABLE =
             "CREATE TABLE IF NOT EXISTS " + TABLE_COURSE + " ("
             + COURSE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
@@ -50,6 +54,7 @@ public class DbHandler extends SQLiteOpenHelper {
     private static final String MENTOR_PHONE = "courseMentorPhone";
     private static final String MENTOR_EMAIL = "courseMentorEmail";
 
+    //Mentor Table Create
     private static final String CREATE_MENTOR_TABLE =
             "CREATE TABLE IF NOT EXISTS " + TABLE_MENTOR + " ("
             + MENTOR_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
@@ -62,10 +67,19 @@ public class DbHandler extends SQLiteOpenHelper {
     private static final String STATUS_ID = "statusId";
     private static final String STATUS_NAME = "statusName";
 
+    //Status Table Create
     private  static final String CREATE_STATUS_TABLE =
             "CREATE TABLE IF NOT EXISTS " + TABLE_STATUS + " ("
             + STATUS_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
             + STATUS_NAME + " TEXT)";
+
+    //Status Table Setup
+    private static final String INSERT_STATUS =
+            "INSERT INTO " + TABLE_STATUS + " (" + STATUS_NAME + ") " +
+                    "VALUES ('Plan To Take')," +
+                    "('In Progress')," +
+                    "('Completed')," +
+                    "('Dropped')";
 
     //Assessment Table
     private static final String TABLE_ASSESSMENT = "assessment";
@@ -75,6 +89,7 @@ public class DbHandler extends SQLiteOpenHelper {
     private static final String ASSESSMENT_ASSESSMENT_TYPE_ID = "assessmentAssessmentTypeId";
     private static final String ASSESSMENT_COURSE_ID = "assessmentCourseId";
 
+    //Assessment Table Create
     private static final String CREATE_ASSESSMENT_TABLE =
             "CREATE TABLE IF NOT EXISTS " + TABLE_ASSESSMENT + " ("
             + ASSESSMENT_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
@@ -88,10 +103,17 @@ public class DbHandler extends SQLiteOpenHelper {
     private static final String ASSESSMENT_TYPE_ID = "assessmentTypeId";
     private static final String ASSESSMENT_TYPE_NAME = "assessmentTypeName";
 
+    //Assessment Type Table Create
     private static final String CREATE_ASSESSMENT_TYPE_TABLE =
             "CREATE TABLE IF NOT EXISTS " + TABLE_ASSESSMENT_TYPE + " ("
             + ASSESSMENT_TYPE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
             + ASSESSMENT_TYPE_NAME + " TEXT)";
+
+    ////Assessment Type Table Setup
+    private static final String INSERT_ASSESSMENT_TYPE =
+            "INSERT INTO " + TABLE_ASSESSMENT_TYPE + " (" + ASSESSMENT_TYPE_NAME + ")" +
+                    "VALUES ('Performance')," +
+                    "('Objective')";
 
     //Note Table
     private static final String TABLE_NOTE = "note";
@@ -99,6 +121,7 @@ public class DbHandler extends SQLiteOpenHelper {
     private static final String NOTE_CONTENTS = "noteContents";
     private static final String NOTE_COURSE_ID = "noteCourseId";
 
+    //Note Table Create
     private static final String CREATE_NOTE_TABLE =
             "CREATE TABLE IF NOT EXISTS " + TABLE_NOTE + " ("
             + NOTE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
@@ -111,24 +134,12 @@ public class DbHandler extends SQLiteOpenHelper {
     private static final String ALERT_NAME = "alertName";
     private static final String ALERT_DATE_TIME = "alertDateTime";
 
+    //Alert Table Create
     private static final String CREATE_ALERT_TABLE =
             "CREATE TABLE IF NOT EXISTS " + TABLE_ALERT + " ("
             + ALERT_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
             + ALERT_NAME + " TEXT, "
             + ALERT_DATE_TIME + " DATETIME)";
-
-    private static final String INSERT_STATUS =
-            "INSERT INTO " + TABLE_STATUS + " (" + STATUS_NAME + ") " +
-                    "VALUES ('Plan To Take')," +
-                    "('In Progress')," +
-                    "('Completed')," +
-                    "('Dropped')";
-    private static final String INSERT_ASSESSMENT_TYPE =
-            "INSERT INTO " + TABLE_ASSESSMENT_TYPE + " (" + ASSESSMENT_TYPE_NAME + ")" +
-                    "VALUES ('Performance')," +
-                    "('Objective')";
-
-
 
     public DbHandler(Context context){
         super(context,DB_NAME, null, DB_VERSION);
@@ -150,6 +161,14 @@ public class DbHandler extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_TERM);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_COURSE);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_MENTOR);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_STATUS);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_ASSESSMENT);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_ASSESSMENT_TYPE);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NOTE);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_ALERT);
+        onCreate(db);
     }
 }
