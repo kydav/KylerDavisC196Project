@@ -2,10 +2,20 @@ package com.example.kylerdavisc196project;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.os.strictmode.SqliteObjectLeakedViolation;
+import android.util.Log;
+
+import com.example.kylerdavisc196project.model.Term;
+
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DbHandler extends SQLiteOpenHelper {
+    private static final String LOG = "DatabaseHelper";
     private static final int DB_VERSION = 1;
     private static final String DB_NAME = "termTrackerDb";
 
@@ -21,8 +31,67 @@ public class DbHandler extends SQLiteOpenHelper {
             "CREATE TABLE IF NOT EXISTS " + TABLE_TERM + " ("
                     + TERM_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                     + TERM_NAME + " TEXT, "
-                    + TERM_START_DATE + " DATE, "
-                    + TERM_END_DATE + " DATE" + ")";
+                    + TERM_START_DATE + " DATETIME, "
+                    + TERM_END_DATE + " DATETIME" + ")";
+
+    //Term Table Insert
+    public long insertTerm(Term term) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(TERM_NAME, term.getName());
+        values.put(TERM_START_DATE, term.getStartDate());
+        values.put(TERM_END_DATE, term.getEndDate());
+
+        long termId = db.insert(TABLE_TERM, null, values);
+
+        return termId;
+    }
+
+    //Term Table SelectAll
+    public List<Term> selectAllTerms() {
+        String selectQuery = "SELECT * FROM " + TABLE_TERM;
+        List<Term> terms = new ArrayList<>();
+
+        Log.e(LOG, selectQuery);
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = db.rawQuery(selectQuery, null);
+
+        if (c.moveToFirst()) {
+            do {
+                Term td = new Term();
+                td.setId(c.getInt((c.getColumnIndex(TERM_ID))));
+                td.setName(c.getString((c.getColumnIndex(TERM_NAME))));
+                td.setStartDate(c.getString((c.getColumnIndex(TERM_START_DATE))));
+
+                terms.add(td);
+            } while (c.moveToNext());
+        }
+        return terms;
+    }
+
+    //Term Table Select Term by Id
+    public Term selectTermById(int termId) {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String selectQuery = "SELECT * FROM " + TABLE_TERM
+                + " WHERE " + TERM_ID + " = " + termId;
+
+        Log.e(LOG, selectQuery);
+
+        Cursor c = db.rawQuery(selectQuery, null);
+
+        if(c != null)
+            c.moveToFirst();
+
+        Term td = new Term();
+        td.setId(c.getInt((c.getColumnIndex(TERM_ID))));
+        td.setName(c.getString((c.getColumnIndex(TERM_NAME))));
+        td.setStartDate(c.getString((c.getColumnIndex(TERM_START_DATE))));
+
+        return td;
+    }
 
     //Course Table
     private static final String TABLE_COURSE = "course";

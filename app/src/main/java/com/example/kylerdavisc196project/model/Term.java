@@ -5,19 +5,19 @@ import java.sql.Date;
 public class Term {
     int id;
     String name;
-    Date startDate;
-    Date endDate;
+    String startDate;
+    String endDate;
 
     public Term() {
 
     }
-    public Term(String name, Date startDate, Date endDate) {
+    public Term(String name, String startDate, String endDate) {
         this.name = name;
         this.startDate = startDate;
         this.endDate = endDate;
     }
 
-    public Term(int id, String name, Date startDate, Date endDate) {
+    public Term(int id, String name, String startDate, String endDate) {
         this.id = id;
         this.name = name;
         this.startDate = startDate;
@@ -32,11 +32,11 @@ public class Term {
         this.name = name;
     }
 
-    public void setStartDate(Date startDate) {
+    public void setStartDate(String startDate) {
         this.startDate = startDate;
     }
 
-    public void setEndDate(Date endDate) {
+    public void setEndDate(String endDate) {
         this.endDate = endDate;
     }
 
@@ -49,11 +49,11 @@ public class Term {
         return this.name;
     }
 
-    public Date getStartDate() {
+    public String getStartDate() {
         return this.startDate;
     }
 
-    public Date getEndDate() {
+    public String getEndDate() {
         return this.endDate;
     }
 

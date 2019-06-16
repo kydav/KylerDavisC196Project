@@ -5,16 +5,16 @@ import java.sql.Date;
 public class Assessment {
     int id;
     String name;
-    Date dueDate;
+    String dueDate;
     Course course;
 
-    public Assessment (String name, Date dueDate, Course course) {
+    public Assessment (String name, String dueDate, Course course) {
         this.name = name;
         this.dueDate = dueDate;
         this.course = course;
     }
 
-    public Assessment (int id, String name, Date dueDate, Course course) {
+    public Assessment (int id, String name, String dueDate, Course course) {
         this.id = id;
         this.name = name;
         this.dueDate = dueDate;
@@ -30,7 +30,7 @@ public class Assessment {
         this.name = name;
     }
 
-    public void setDueDate (Date dueDate) {
+    public void setDueDate (String dueDate) {
         this.dueDate = dueDate;
     }
 
@@ -47,7 +47,7 @@ public class Assessment {
         return this.name;
     }
 
-    public Date getDueDate() {
+    public String getDueDate() {
         return this.dueDate;
     }
 
