@@ -116,30 +116,29 @@ public class DbHandler extends SQLiteOpenHelper {
             + COURSE_TERM_ID + " INTEGER)";
 
     //Select Courses by Term
-    public List<Course> selectCoursesByTerm(int termId) {
-        String selectQuery = "SELECT * FROM " + TABLE_COURSE + " WHERE " + COURSE_ID + " = " + termId;
-        List<Course> terms = new ArrayList<>();
-
-        Log.e(LOG, selectQuery);
-
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor c = db.rawQuery(selectQuery, null);
-
-        if (c.moveToFirst()) {
-            do {
-                Course td = new Course();
-                td.setId(c.getInt((c.getColumnIndex(COURSE_ID))));
-                td.setName(c.getString((c.getColumnIndex(COURSE_NAME))));
-                td.setDescription(c.getString((c.getColumnIndex(COURSE_DESCRIPTION))));
-                td.setStartDate(c.getString((c.getColumnIndex(TERM_START_DATE))));
-                td.setEndDate(c.getString((c.getColumnIndex(TERM_END_DATE))));
-                td.setMentor
-
-                terms.add(td);
-            } while (c.moveToNext());
-        }
-        return terms;
-    }
+    //TODO: Need to make Join on Mentor table and Term Table to get all data in same select so sets can use all of it.
+//    public List<Course> selectCoursesByTerm(int termId) {
+//        String selectQuery = "SELECT * FROM " + TABLE_COURSE + " WHERE " + COURSE_ID + " = " + termId;
+//        List<Course> terms = new ArrayList<>();
+//
+//        Log.e(LOG, selectQuery);
+//        SQLiteDatabase db = this.getReadableDatabase();
+//        Cursor c = db.rawQuery(selectQuery, null);
+//        if (c.moveToFirst()) {
+//            do {
+//                Course td = new Course();
+//                td.setId(c.getInt((c.getColumnIndex(COURSE_ID))));
+//                td.setName(c.getString((c.getColumnIndex(COURSE_NAME))));
+//                td.setDescription(c.getString((c.getColumnIndex(COURSE_DESCRIPTION))));
+//                td.setStartDate(c.getString((c.getColumnIndex(TERM_START_DATE))));
+//                td.setEndDate(c.getString((c.getColumnIndex(TERM_END_DATE))));
+//                td.setMentor
+//
+//                terms.add(td);
+//            } while (c.moveToNext());
+//        }
+//        return terms;
+//    }
     //Select Course by Id
 
 
