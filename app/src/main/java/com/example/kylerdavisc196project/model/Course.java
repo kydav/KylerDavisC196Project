@@ -5,14 +5,16 @@ import java.sql.Date;
 public class Course {
     int id;
     String name;
+    String description;
     String startDate;
     String endDate;
     String status;
     Term term;
     Mentor mentor;
 
-    public Course(String name, String startDate, String endDate, String status, Term term, Mentor mentor) {
+    public Course(String name, String description, String startDate, String endDate, String status, Term term, Mentor mentor) {
         this.name = name;
+        this.description = description;
         this.startDate = startDate;
         this.endDate = endDate;
         this.status = status;
@@ -20,9 +22,10 @@ public class Course {
         this.mentor = mentor;
     }
 
-    public Course(int id, String name, String startDate, String endDate, String status, Term term, Mentor mentor) {
+    public Course(int id, String name, String description, String startDate, String endDate, String status, Term term, Mentor mentor) {
         this.id = id;
         this.name = name;
+        this.description = description;
         this.startDate = startDate;
         this.endDate = endDate;
         this.status = status;
@@ -37,6 +40,10 @@ public class Course {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public void setStartDate(String startDate) {
@@ -66,6 +73,10 @@ public class Course {
 
     public String getName() {
         return this.name;
+    }
+
+    public String getDescription() {
+        return this.description;
     }
 
     public String getStartDate() {
