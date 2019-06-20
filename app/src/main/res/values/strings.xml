@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">KylerDavisC196Project</string>
     <string name="action_settings">Settings</string>
+    <string name="title_activity_term_list">TermList</string>
+    <string name="title_activity_term_view">TermView</string>
+    <string name="term_start_date">Term Start Date:</string>
+    <string name="term_end_date">Term End Date:</string>
 </resources>
