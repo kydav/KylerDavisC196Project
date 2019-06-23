@@ -8,11 +8,11 @@ public class Course {
     String description;
     String startDate;
     String endDate;
-    String status;
+    Status status;
     Term term;
     Mentor mentor;
 
-    public Course(String name, String description, String startDate, String endDate, String status, Term term, Mentor mentor) {
+    public Course(String name, String description, String startDate, String endDate, Status status, Term term, Mentor mentor) {
         this.name = name;
         this.description = description;
         this.startDate = startDate;
@@ -22,7 +22,7 @@ public class Course {
         this.mentor = mentor;
     }
 
-    public Course(int id, String name, String description, String startDate, String endDate, String status, Term term, Mentor mentor) {
+    public Course(int id, String name, String description, String startDate, String endDate, Status status, Term term, Mentor mentor) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -54,7 +54,7 @@ public class Course {
         this.endDate = endDate;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(Status status) {
         this.status = status;
     }
 
@@ -87,7 +87,7 @@ public class Course {
         return this.endDate;
     }
 
-    public String getStatus () {
+    public Status getStatus () {
         return this.status;
     }
 

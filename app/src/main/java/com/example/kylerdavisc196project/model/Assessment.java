@@ -6,18 +6,21 @@ public class Assessment {
     int id;
     String name;
     String dueDate;
+    AssessmentType type;
     Course course;
 
-    public Assessment (String name, String dueDate, Course course) {
+    public Assessment (String name, String dueDate, Course course, AssessmentType type) {
         this.name = name;
         this.dueDate = dueDate;
+        this.type = type;
         this.course = course;
     }
 
-    public Assessment (int id, String name, String dueDate, Course course) {
+    public Assessment (int id, String name, String dueDate, Course course, AssessmentType type) {
         this.id = id;
         this.name = name;
         this.dueDate = dueDate;
+        this.type = type;
         this.course = course;
     }
 
@@ -33,6 +36,8 @@ public class Assessment {
     public void setDueDate (String dueDate) {
         this.dueDate = dueDate;
     }
+
+    public void setType (AssessmentType type) { this.type = type; }
 
     public void setCourse () {
         this.course = course;
@@ -50,6 +55,8 @@ public class Assessment {
     public String getDueDate() {
         return this.dueDate;
     }
+
+    public AssessmentType getType() { return this.type; }
 
     public Course getCourse() {
         return this.course;
