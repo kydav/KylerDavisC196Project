@@ -104,14 +104,14 @@ public class QueryManager {
         val.put(DbHandler.COURSE_DESCRIPTION, course.getDescription());
         val.put(DbHandler.COURSE_START_DATE, course.getStartDate());
         val.put(DbHandler.COURSE_END_DATE, course.getEndDate());
-        val.put(DbHandler.COURSE_STATUS_ID, course.getStatus().getId());
-        val.put(DbHandler.COURSE_MENTOR_ID, course.getMentor().getId());
-        val.put(DbHandler.COURSE_TERM_ID, course.getTerm().getId());
+        val.put(DbHandler.COURSE_STATUS_ID, course.getStatus());
+        val.put(DbHandler.COURSE_MENTOR_ID, course.getMentor());
+        val.put(DbHandler.COURSE_TERM_ID, course.getTerm());
         long id = database.insert(DbHandler.TABLE_COURSE, null, val);
         return id;
     }
     //Read Operations
-    public Term selectCourse(int id) {
+    public Course selectCourse(int id) {
         Cursor cursor = database.query(DbHandler.TABLE_COURSE,allTermColumns,DbHandler.COURSE_ID + "=?",new String[]{String.valueOf(id)},null,null, null, null);
         if (cursor != null)
             cursor.moveToFirst();
@@ -128,21 +128,21 @@ public class QueryManager {
         // return Employee
         return c;
     }
-    public List<Term> selectAllTerms() {
+    public List<Course> selectAllCourses() {
         Cursor cursor = database.query(DbHandler.TABLE_TERM,allTermColumns,null,null,null, null, null);
         // Log.e(LOG, selectQuery);
-        List<Term> terms =  new ArrayList<>();
+        List<Course> courses =  new ArrayList<>();
 
         if (cursor.getCount()> 0) {
             while(cursor.moveToNext()) {
-                Term td = new Term();
-                td.setId(cursor.getInt((cursor.getColumnIndex(DbHandler.TERM_ID))));
-                td.setName(cursor.getString((cursor.getColumnIndex(DbHandler.TERM_NAME))));
-                td.setStartDate(cursor.getString((cursor.getColumnIndex(DbHandler.TERM_START_DATE))));
-                terms.add(td);
+                Course cd = new Course();
+                cd.setId(cursor.getInt((cursor.getColumnIndex(DbHandler.COURSE_ID))));
+                cd.setName(cursor.getString((cursor.getColumnIndex(DbHandler.COURSE_NAME))));
+                cd.setDescription(cursor.getString((cursor.getColumnIndex(DbHandler.COURSE_DESCRIPTION))));
+                courses.add(cd);
             }
         }
-        return terms;
+        return courses;
     }
 
     //Update
@@ -152,9 +152,9 @@ public class QueryManager {
         val.put(DbHandler.COURSE_DESCRIPTION, course.getDescription());
         val.put(DbHandler.COURSE_START_DATE, course.getStartDate());
         val.put(DbHandler.COURSE_END_DATE, course.getEndDate());
-        val.put(DbHandler.COURSE_STATUS_ID, course.getStatus().getId());
-        val.put(DbHandler.COURSE_MENTOR_ID, course.getMentor().getId());
-        val.put(DbHandler.COURSE_TERM_ID, course.getTerm().getId());
+        val.put(DbHandler.COURSE_STATUS_ID, course.getStatus());
+        val.put(DbHandler.COURSE_MENTOR_ID, course.getMentor());
+        val.put(DbHandler.COURSE_TERM_ID, course.getTerm());
         long id = database.update(DbHandler.TABLE_COURSE, val, DbHandler.COURSE_ID + "=" + course.getId(), null);
         return id;
     }
