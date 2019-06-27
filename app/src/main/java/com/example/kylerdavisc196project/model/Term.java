@@ -23,7 +23,7 @@ public class Term {
         this.startDate = startDate;
         this.endDate = endDate;
     }
-    //settters
+    //setters
     public void setId(int id) {
         this.id = id;
     }

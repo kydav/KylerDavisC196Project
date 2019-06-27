@@ -6,22 +6,25 @@ public class Assessment {
     int id;
     String name;
     String dueDate;
-    AssessmentType type;
-    Course course;
+    int typeId;
+    int courseId;
 
-    public Assessment (String name, String dueDate, Course course, AssessmentType type) {
+    public Assessment() {
+
+    }
+    public Assessment (String name, String dueDate, int courseId, int typeId) {
         this.name = name;
         this.dueDate = dueDate;
-        this.type = type;
-        this.course = course;
+        this.typeId = typeId;
+        this.courseId = courseId;
     }
 
-    public Assessment (int id, String name, String dueDate, Course course, AssessmentType type) {
+    public Assessment (int id, String name, String dueDate, int courseId, int typeId) {
         this.id = id;
         this.name = name;
         this.dueDate = dueDate;
-        this.type = type;
-        this.course = course;
+        this.typeId = typeId;
+        this.courseId = courseId;
     }
 
     //setters
@@ -37,10 +40,10 @@ public class Assessment {
         this.dueDate = dueDate;
     }
 
-    public void setType (AssessmentType type) { this.type = type; }
+    public void setType (int type) { this.typeId = typeId; }
 
     public void setCourse () {
-        this.course = course;
+        this.courseId = courseId;
     }
 
     //getters
@@ -56,9 +59,9 @@ public class Assessment {
         return this.dueDate;
     }
 
-    public AssessmentType getType() { return this.type; }
+    public int getTypeId() { return this.typeId; }
 
-    public Course getCourse() {
-        return this.course;
+    public int getCourseId() {
+        return this.courseId;
     }
 }

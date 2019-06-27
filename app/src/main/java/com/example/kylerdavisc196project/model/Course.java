@@ -12,6 +12,10 @@ public class Course {
     int term;
     int mentor;
 
+    public Course() {
+
+    }
+
     public Course(String name, String description, String startDate, String endDate, int status, int term, int mentor) {
         this.name = name;
         this.description = description;

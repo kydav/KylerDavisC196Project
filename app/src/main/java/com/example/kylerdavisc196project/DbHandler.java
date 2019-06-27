@@ -185,54 +185,6 @@ public class DbHandler extends SQLiteOpenHelper {
         }
     }
 
-    //Term Table SelectAll
-    public List<Term> selectAllTerms() {
-        String selectQuery = "SELECT * FROM " + TABLE_TERM;
-        List<Term> terms = new ArrayList<>();
-
-        Log.e(LOG, selectQuery);
-
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor c = db.rawQuery(selectQuery, null);
-
-        if (c.moveToFirst()) {
-            do {
-                Term td = new Term();
-                td.setId(c.getInt((c.getColumnIndex(TERM_ID))));
-                td.setName(c.getString((c.getColumnIndex(TERM_NAME))));
-                td.setStartDate(c.getString((c.getColumnIndex(TERM_START_DATE))));
-
-                terms.add(td);
-            } while (c.moveToNext());
-        }
-        return terms;
-    }
-
-    //Select Courses by Term
-    //TODO: Need to make Join on Mentor table and Term Table to get all data in same select so sets can use all of it.
-//    public List<Course> selectCoursesByTerm(int termId) {
-//        String selectQuery = "SELECT * FROM " + TABLE_COURSE + " WHERE " + COURSE_ID + " = " + termId;
-//        List<Course> terms = new ArrayList<>();
-//
-//        Log.e(LOG, selectQuery);
-//        SQLiteDatabase db = this.getReadableDatabase();
-//        Cursor c = db.rawQuery(selectQuery, null);
-//        if (c.moveToFirst()) {
-//            do {
-//                Course td = new Course();
-//                td.setId(c.getInt((c.getColumnIndex(COURSE_ID))));
-//                td.setName(c.getString((c.getColumnIndex(COURSE_NAME))));
-//                td.setDescription(c.getString((c.getColumnIndex(COURSE_DESCRIPTION))));
-//                td.setStartDate(c.getString((c.getColumnIndex(TERM_START_DATE))));
-//                td.setEndDate(c.getString((c.getColumnIndex(TERM_END_DATE))));
-//                td.setMentor
-//
-//                terms.add(td);
-//            } while (c.moveToNext());
-//        }
-//        return terms;
-//    }
-
     //Status Table Setup
     private static final String INSERT_STATUS =
             "INSERT INTO " + TABLE_STATUS + " (" + STATUS_NAME + ") " +
