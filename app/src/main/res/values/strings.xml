@@ -5,4 +5,8 @@
     <string name="title_activity_term_view">TermView</string>
     <string name="term_start_date">Term Start Date:</string>
     <string name="term_end_date">Term End Date:</string>
+    <string name="action_delete_all_data">Delete All Data</string>
+    <string name="home_create_term_button">Create Term Button</string>
+    <string name="home_current_term_button">Current Term Button</string>
+    <string name="home_term_list_button">Term List Button</string>
 </resources>
