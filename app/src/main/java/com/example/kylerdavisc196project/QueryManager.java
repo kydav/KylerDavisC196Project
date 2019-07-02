@@ -159,13 +159,28 @@ public class QueryManager {
         }
     }
     public boolean currentTermExists() {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyy/MM/dd");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
         String currentDate = sdf.format(Calendar.getInstance().getTime());
-        return true;
+        String whereClause = "'" + currentDate + "' BETWEEN " + TermDbHandler.TERM_START_DATE + " AND " + TermDbHandler.TERM_END_DATE;
+        Cursor cursor = database.query(TermDbHandler.TABLE_TERM,allTermColumns, whereClause, null,null,null,null);
+        if (cursor.getCount() != 0) {
+            return true;
+        }else {
+            return false;
+        }
     }
     public Term currentTerm() {
         Term term = new Term();
-
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+        String currentDate = sdf.format(Calendar.getInstance().getTime());
+        String whereClause = "'" + currentDate + "' BETWEEN " + TermDbHandler.TERM_START_DATE + " AND " + TermDbHandler.TERM_END_DATE;
+        Cursor cursor = database.query(TermDbHandler.TABLE_TERM,allTermColumns, whereClause, null,null,null,null);
+        if (cursor != null ) {
+            term.setId(cursor.getInt(cursor.getColumnIndex(TermDbHandler.TERM_ID)));
+            term.setName(cursor.getString(cursor.getColumnIndex(TermDbHandler.TERM_NAME)));
+            term.setStartDate(cursor.getString(cursor.getColumnIndex(TermDbHandler.TERM_START_DATE)));
+            term.setEndDate(cursor.getString(cursor.getColumnIndex(TermDbHandler.TERM_END_DATE)));
+        }
         return term;
     }
 

@@ -12,14 +12,14 @@ public class Assessment {
     public Assessment() {
 
     }
-    public Assessment (String name, String dueDate, int courseId, int typeId) {
+    public Assessment (String name, String dueDate, int typeId, int courseId) {
         this.name = name;
         this.dueDate = dueDate;
         this.typeId = typeId;
         this.courseId = courseId;
     }
 
-    public Assessment (int id, String name, String dueDate, int courseId, int typeId) {
+    public Assessment (int id, String name, String dueDate, int typeId, int courseId) {
         this.id = id;
         this.name = name;
         this.dueDate = dueDate;

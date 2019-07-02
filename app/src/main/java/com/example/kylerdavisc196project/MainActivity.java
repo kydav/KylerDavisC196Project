@@ -1,6 +1,7 @@
 package com.example.kylerdavisc196project;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -21,6 +22,8 @@ import com.example.kylerdavisc196project.model.Term;
 public class MainActivity extends AppCompatActivity {
     private QueryManager QM;
     private CoordinatorLayout coordinatorLayout;
+    private long termId;
+    private ImageButton currentTermButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,7 +34,14 @@ public class MainActivity extends AppCompatActivity {
         QM = new QueryManager(MainActivity.this);
         QM.open();
         hideShowTermList();
-        QM.currentTermExists();
+        hideShowCurrentTerm();
+        currentTermButton = findViewById(R.id.currentTermButton);
+        currentTermButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+            Intent intent = new Intent(getApplicationContext(),TermView.class);
+            intent.putExtra(TermDbHandler.TERM_ID, termId);
+            startActivity(intent);}
+        });
     }
 
     @Override
@@ -56,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
                 System.out.println(e);
             }
             hideShowTermList();
+            hideShowCurrentTerm();
             Snackbar snackbar = Snackbar.make(coordinatorLayout, "Test Data Created", Snackbar.LENGTH_SHORT);
             snackbar.show();
             return true;
@@ -67,6 +78,7 @@ public class MainActivity extends AppCompatActivity {
                 System.out.println(e);
             }
             hideShowTermList();
+            hideShowCurrentTerm();
             Snackbar snackbar = Snackbar.make(coordinatorLayout, "All Data Deleted", Snackbar.LENGTH_SHORT);
             snackbar.show();
             return true;
@@ -79,6 +91,7 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
         QM.open();
         hideShowTermList();
+        hideShowCurrentTerm();
     }
 
     @Override
@@ -86,6 +99,18 @@ public class MainActivity extends AppCompatActivity {
         super.onPause();
         QM.close();
     }
+    public void createNewTerm(View view) {
+        Intent intent = new Intent(getApplicationContext(),TermCreate.class);
+        startActivity(intent);
+    }
+    public void openTermList(View view) {
+        Intent intent = new Intent(getApplicationContext(),TermList.class);
+        startActivity(intent);
+    }
+    public void openCurrentTerm(View view) {
+
+    }
+
     public void hideShowTermList() {
         if(!QM.isTermEmpty()) {
             ImageButton termListButton = findViewById(R.id.termListButton);
@@ -95,13 +120,24 @@ public class MainActivity extends AppCompatActivity {
             termListButton.setVisibility(View.INVISIBLE);
         }
     }
+    public void hideShowCurrentTerm() {
+        if(QM.currentTermExists()) {
+            //TODO Add logic here to set the term id for the current term so that it can be used inside of the intent.  Will need to refactor the query so that it returns the Term Id instead of boolean
+            //TODO might also need to just use a different query to set the Term id, might have used the wrong one, look into this further.
+            ImageButton currentTermButton = findViewById(R.id.currentTermButton);
+            currentTermButton.setVisibility(View.VISIBLE);
+        }else {
+            ImageButton currentTermButton = findViewById(R.id.currentTermButton);
+            currentTermButton.setVisibility(View.INVISIBLE);
+        }
+    }
 
     public void generateTestData() {
-        Term termOne = new Term("Term 1", "2019-08-01", "2020-01-31");
+        Term termOne = new Term("Term 1", "20190701", "20191231");
         QM.insertTerm(termOne);
-        Term termTwo = new Term("Term 2", "2020-02-01", "2020-07-31");
+        Term termTwo = new Term("Term 2", "20200101", "20200630");
         QM.insertTerm(termTwo);
-        Term termThree = new Term("Term 3", "2020-08-01", "2021-01-31");
+        Term termThree = new Term("Term 3", "20200701", "20201231");
         QM.insertTerm(termThree);
 
         Mentor mentorOne = new Mentor("James Smith", "123-456-1234", "james.smith@wgu.edu");
@@ -123,43 +159,42 @@ public class MainActivity extends AppCompatActivity {
         Mentor mentorNine = new Mentor("James Johnson", "123-456-1243", "james.johnson@wgu.edu");
         QM.insertMentor(mentorNine);
 
-        Course courseOne = new Course("Course 1", "Course 1 Description", "2019-08-01", "2019-09-30", 2, 1, 1);
+        Course courseOne = new Course("Course 1", "Course 1 Description", "20190701", "20190831", 2, 1, 1);
         QM.insertCourse(courseOne);
-        Course courseTwo = new Course("Course 2", "Course 2 Description", "2019-10-01", "2019-11-30", 1, 1, 2);
+        Course courseTwo = new Course("Course 2", "Course 2 Description", "20190901", "20191031", 1, 1, 2);
         QM.insertCourse(courseTwo);
-        Course courseThree = new Course("Course 3", "Course 3 Description", "2019-12-01", "2020-01-31", 1, 1, 3);
+        Course courseThree = new Course("Course 3", "Course 3 Description", "20191101", "20201231", 1, 1, 3);
         QM.insertCourse(courseThree);
-        Course courseFour = new Course("Course 4", "Course 4 Description", "2020-02-01", "2020-03-31", 1, 2, 4);
+        Course courseFour = new Course("Course 4", "Course 4 Description", "20200101", "20200229", 1, 2, 4);
         QM.insertCourse(courseFour);
-        Course courseFive = new Course("Course 5", "Course 5 Description", "2020-04-01", "2020-05-31", 1, 2, 5);
+        Course courseFive = new Course("Course 5", "Course 5 Description", "20200301", "20200430", 1, 2, 5);
         QM.insertCourse(courseFive);
-        Course courseSix = new Course("Course 6", "Course 6 Description", "2020-06-01", "2020-07-31", 1, 2, 6);
+        Course courseSix = new Course("Course 6", "Course 6 Description", "20200501", "20200630", 1, 2, 6);
         QM.insertCourse(courseSix);
-        Course courseSeven = new Course("Course 7", "Course 7 Description", "2020-08-01", "2020-09-30", 1, 3, 7);
+        Course courseSeven = new Course("Course 7", "Course 7 Description", "20200701", "20200831", 1, 3, 7);
         QM.insertCourse(courseSeven);
-        Course courseEight = new Course("Course 8", "Course 8 Description", "2020-10-01", "2020-11-30", 1, 3, 8);
+        Course courseEight = new Course("Course 8", "Course 8 Description", "20200901", "20201031", 1, 3, 8);
         QM.insertCourse(courseEight);
-        Course courseNine = new Course("Course 9", "Course 9 Description", "2020-12-01", "2020-01-31", 1, 3, 9);
+        Course courseNine = new Course("Course 9", "Course 9 Description", "20201101", "20201231", 1, 3, 9);
         QM.insertCourse(courseNine);
 
-        Assessment assessmentOne = new Assessment("Course 1 Assessment", "2019-09-30", 1, 1);
-        long id = QM.insertAssessment(assessmentOne);
-        System.out.println(id);
-        Assessment assessmentTwo = new Assessment("Course 2 Assessment", "2019-11-30", 1, 2);
+        Assessment assessmentOne = new Assessment("Course 1 Assessment", "20190831", 1, 1);
+        QM.insertAssessment(assessmentOne);
+        Assessment assessmentTwo = new Assessment("Course 2 Assessment", "20191031", 1, 2);
         QM.insertAssessment(assessmentTwo);
-        Assessment assessmentThree = new Assessment("Course 3 Assessment", "2020-01-31", 2, 3);
+        Assessment assessmentThree = new Assessment("Course 3 Assessment", "20191231", 2, 3);
         QM.insertAssessment(assessmentThree);
-        Assessment assessmentFour = new Assessment("Course 4 Assessment", "2020-03-31", 1, 4);
+        Assessment assessmentFour = new Assessment("Course 4 Assessment", "20200229", 1, 4);
         QM.insertAssessment(assessmentFour);
-        Assessment assessmentFive = new Assessment("Course 5 Assessment", "2020-05-31", 2, 5);
+        Assessment assessmentFive = new Assessment("Course 5 Assessment", "20200430", 2, 5);
         QM.insertAssessment(assessmentFive);
-        Assessment assessmentSix = new Assessment("Course 6 Assessment", "2020-07-31", 2, 6);
+        Assessment assessmentSix = new Assessment("Course 6 Assessment", "20200630", 2, 6);
         QM.insertAssessment(assessmentSix);
-        Assessment assessmentSeven = new Assessment("Course 7 Assessment", "2020-09-30", 1, 7);
+        Assessment assessmentSeven = new Assessment("Course 7 Assessment", "20200831", 1, 7);
         QM.insertAssessment(assessmentSeven);
-        Assessment assessmentEight = new Assessment("Course 8 Assessment", "2020-11-30", 2, 8);
+        Assessment assessmentEight = new Assessment("Course 8 Assessment", "20201031", 2, 8);
         QM.insertAssessment(assessmentEight);
-        Assessment assessmentNine = new Assessment("Course 9 Assessment", "2020-01-31", 1, 9);
+        Assessment assessmentNine = new Assessment("Course 9 Assessment", "20201231", 1, 9);
         QM.insertAssessment(assessmentNine);
 
         QM.insertNote("Lorem ipsum dolor sit amet, consectetur adipiscing elit, " +
