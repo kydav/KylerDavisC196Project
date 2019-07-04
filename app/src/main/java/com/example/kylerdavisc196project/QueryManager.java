@@ -176,6 +176,7 @@ public class QueryManager {
         String whereClause = "'" + currentDate + "' BETWEEN " + TermDbHandler.TERM_START_DATE + " AND " + TermDbHandler.TERM_END_DATE;
         Cursor cursor = database.query(TermDbHandler.TABLE_TERM,allTermColumns, whereClause, null,null,null,null);
         if (cursor != null ) {
+            cursor.moveToFirst();
             term.setId(cursor.getInt(cursor.getColumnIndex(TermDbHandler.TERM_ID)));
             term.setName(cursor.getString(cursor.getColumnIndex(TermDbHandler.TERM_NAME)));
             term.setStartDate(cursor.getString(cursor.getColumnIndex(TermDbHandler.TERM_START_DATE)));
@@ -192,10 +193,11 @@ public class QueryManager {
     //  Term t = new Term(Integer.parseInt(cursor.getString(0)),cursor.getString(1),cursor.getString(2),cursor.getString(3));
         Term t = new Term();
         if (cursor != null) {
+            cursor.moveToFirst();
             t.setId(cursor.getInt(cursor.getColumnIndex(TermDbHandler.TERM_ID)));
             t.setName(cursor.getString(cursor.getColumnIndex(TermDbHandler.TERM_NAME)));
-            t.setStartDate(cursor.getString(cursor.getColumnIndex(TermDbHandler.TERM_START_DATE)));
-            t.setEndDate(cursor.getString(cursor.getColumnIndex(TermDbHandler.TERM_END_DATE)));
+            t.setStartDate(transformedDate(cursor.getString(cursor.getColumnIndex(TermDbHandler.TERM_START_DATE))));
+            t.setEndDate(transformedDate(cursor.getString(cursor.getColumnIndex(TermDbHandler.TERM_END_DATE))));
         }
         return t;
     }
@@ -210,7 +212,7 @@ public class QueryManager {
                 Term td = new Term();
                 td.setId(cursor.getInt((cursor.getColumnIndex(TermDbHandler.TERM_ID))));
                 td.setName(cursor.getString((cursor.getColumnIndex(TermDbHandler.TERM_NAME))));
-                td.setStartDate(cursor.getString((cursor.getColumnIndex(TermDbHandler.TERM_START_DATE))));
+                td.setStartDate(transformedDate(cursor.getString((cursor.getColumnIndex(TermDbHandler.TERM_START_DATE)))));
                 terms.add(td);
             }
         }
@@ -232,6 +234,7 @@ public class QueryManager {
 //                cursor.getInt(7));
         Course c = new Course();
         if (cursor != null) {
+            cursor.moveToFirst();
             c.setName(cursor.getString(cursor.getColumnIndex(TermDbHandler.COURSE_NAME)));
             c.setDescription(cursor.getString(cursor.getColumnIndex(TermDbHandler.COURSE_DESCRIPTION)));
             c.setStartDate(cursor.getString(cursor.getColumnIndex(TermDbHandler.COURSE_START_DATE)));
@@ -276,8 +279,8 @@ public class QueryManager {
                 cd.setId(cursor.getInt(cursor.getColumnIndex(TermDbHandler.COURSE_ID)));
                 cd.setName(cursor.getString(cursor.getColumnIndex(TermDbHandler.COURSE_NAME)));
                 cd.setDescription(cursor.getString(cursor.getColumnIndex(TermDbHandler.COURSE_DESCRIPTION)));
-                cd.setStartDate(cursor.getString(cursor.getColumnIndex(TermDbHandler.COURSE_START_DATE)));
-                cd.setEndDate(cursor.getString(cursor.getColumnIndex(TermDbHandler.COURSE_END_DATE)));
+                cd.setStartDate(transformedDate(cursor.getString(cursor.getColumnIndex(TermDbHandler.COURSE_START_DATE))));
+                cd.setEndDate(transformedDate(cursor.getString(cursor.getColumnIndex(TermDbHandler.COURSE_END_DATE))));
                 cd.setStatus(cursor.getInt(cursor.getColumnIndex(TermDbHandler.COURSE_STATUS_ID)));
                 cd.setTerm(cursor.getInt(cursor.getColumnIndex(TermDbHandler.COURSE_TERM_ID)));
                 cd.setMentor(cursor.getInt(cursor.getColumnIndex(TermDbHandler.COURSE_MENTOR_ID)));
@@ -411,5 +414,9 @@ public class QueryManager {
 
         database.delete(TermDbHandler.TABLE_TERM,null,null);
         database.delete("sqlite_sequence", "name = '"+ TermDbHandler.TABLE_TERM+ "'",null);
+    }
+    public String transformedDate(String dateIn) {
+        //Date in will be formatted as YYYYMMDD
+        return dateIn.substring(4,6) + "/" + dateIn.substring(6,8) + "/" + dateIn.substring(0,4);
     }
  }

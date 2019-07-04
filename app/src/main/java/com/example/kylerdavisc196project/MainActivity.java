@@ -39,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
         currentTermButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
             Intent intent = new Intent(getApplicationContext(),TermView.class);
+            termId = QM.currentTerm().getId();
             intent.putExtra(TermDbHandler.TERM_ID, termId);
             startActivity(intent);}
         });
@@ -122,8 +123,6 @@ public class MainActivity extends AppCompatActivity {
     }
     public void hideShowCurrentTerm() {
         if(QM.currentTermExists()) {
-            //TODO Add logic here to set the term id for the current term so that it can be used inside of the intent.  Will need to refactor the query so that it returns the Term Id instead of boolean
-            //TODO might also need to just use a different query to set the Term id, might have used the wrong one, look into this further.
             ImageButton currentTermButton = findViewById(R.id.currentTermButton);
             currentTermButton.setVisibility(View.VISIBLE);
         }else {
