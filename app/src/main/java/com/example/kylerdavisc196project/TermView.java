@@ -62,13 +62,6 @@ public class TermView extends AppCompatActivity {
         courseListView = findViewById(R.id.termViewCourseListView);
         courseAdapter = new CourseAdapter(this,coursesToView);
         courseListView.setAdapter(courseAdapter);
-
-        //TODO: Need to find a way to do a query for status, will eventually have to tackle
-        //TODO: nested queries somehow because there are nested objects.  This will be a good
-        //TODO: place to figure out where I need to put the query to get the statuses.  Maybe
-        //TODO: I do need to go in and put my objects back to nested objects instead of IDs,
-        //TODO: either that or I need to nest the queries, and set the nested objects somehow.
-        //TODO: probably need to do a join operation in the db query.
     }
 
 }

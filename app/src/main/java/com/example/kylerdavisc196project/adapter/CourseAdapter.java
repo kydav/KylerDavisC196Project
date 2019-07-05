@@ -14,8 +14,6 @@ import android.widget.TextView;
 import com.example.kylerdavisc196project.R;
 import com.example.kylerdavisc196project.model.Course;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,7 +21,7 @@ public class CourseAdapter extends ArrayAdapter<Course> {
     private Context mContext;
     private List<Course> courseList = new ArrayList<>();
 
-    public CourseAdapter(@NonNull Context context, @LayoutRes List<Course> list) {
+    public CourseAdapter(@NonNull Context context, List<Course> list) {
         super(context, 0 , list);
         mContext = context;
         courseList = list;
@@ -46,8 +44,8 @@ public class CourseAdapter extends ArrayAdapter<Course> {
             TextView end = (TextView) listItem.findViewById(R.id.course_end);
             end.setText(currentCourse.getEndDate());
 
-            //TextView status = (TextView) listItem.findViewById(R.id.course_status);
-            //status.setText(currentCourse.getStatus());
+            TextView status = (TextView) listItem.findViewById(R.id.course_status);
+            status.setText(currentCourse.getStatus().getName());
 
             return listItem;
 
