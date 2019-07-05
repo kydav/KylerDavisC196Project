@@ -158,23 +158,23 @@ public class MainActivity extends AppCompatActivity {
         Mentor mentorNine = new Mentor("James Johnson", "123-456-1243", "james.johnson@wgu.edu");
         QM.insertMentor(mentorNine);
 
-        Course courseOne = new Course("Course 1", "Course 1 Description", "20190701", "20190831", 2, 1, 1);
+        Course courseOne = new Course("Course 1", "Course 1 Description", "20190701", "20190831", TermDbHandler.statusInProgres, termOne, mentorOne);
         QM.insertCourse(courseOne);
-        Course courseTwo = new Course("Course 2", "Course 2 Description", "20190901", "20191031", 1, 1, 2);
+        Course courseTwo = new Course("Course 2", "Course 2 Description", "20190901", "20191031", TermDbHandler.statusPlanToTake, termOne, mentorTwo);
         QM.insertCourse(courseTwo);
-        Course courseThree = new Course("Course 3", "Course 3 Description", "20191101", "20201231", 1, 1, 3);
+        Course courseThree = new Course("Course 3", "Course 3 Description", "20191101", "20201231", TermDbHandler.statusPlanToTake, termOne, mentorThree);
         QM.insertCourse(courseThree);
-        Course courseFour = new Course("Course 4", "Course 4 Description", "20200101", "20200229", 1, 2, 4);
+        Course courseFour = new Course("Course 4", "Course 4 Description", "20200101", "20200229", TermDbHandler.statusPlanToTake, termTwo, mentorFour);
         QM.insertCourse(courseFour);
-        Course courseFive = new Course("Course 5", "Course 5 Description", "20200301", "20200430", 1, 2, 5);
+        Course courseFive = new Course("Course 5", "Course 5 Description", "20200301", "20200430", TermDbHandler.statusPlanToTake, termTwo, mentorFive);
         QM.insertCourse(courseFive);
-        Course courseSix = new Course("Course 6", "Course 6 Description", "20200501", "20200630", 1, 2, 6);
+        Course courseSix = new Course("Course 6", "Course 6 Description", "20200501", "20200630", TermDbHandler.statusPlanToTake, termTwo, mentorSix);
         QM.insertCourse(courseSix);
-        Course courseSeven = new Course("Course 7", "Course 7 Description", "20200701", "20200831", 1, 3, 7);
+        Course courseSeven = new Course("Course 7", "Course 7 Description", "20200701", "20200831", TermDbHandler.statusPlanToTake, termThree, mentorSeven);
         QM.insertCourse(courseSeven);
-        Course courseEight = new Course("Course 8", "Course 8 Description", "20200901", "20201031", 1, 3, 8);
+        Course courseEight = new Course("Course 8", "Course 8 Description", "20200901", "20201031", TermDbHandler.statusPlanToTake, termThree, mentorEight);
         QM.insertCourse(courseEight);
-        Course courseNine = new Course("Course 9", "Course 9 Description", "20201101", "20201231", 1, 3, 9);
+        Course courseNine = new Course("Course 9", "Course 9 Description", "20201101", "20201231", TermDbHandler.statusPlanToTake, termThree, mentorNine);
         QM.insertCourse(courseNine);
 
         Assessment assessmentOne = new Assessment("Course 1 Assessment", "20190831", 1, 1);

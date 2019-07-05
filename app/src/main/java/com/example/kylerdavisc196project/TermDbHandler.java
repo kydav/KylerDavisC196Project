@@ -9,6 +9,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import com.example.kylerdavisc196project.model.Course;
+import com.example.kylerdavisc196project.model.Status;
 import com.example.kylerdavisc196project.model.Term;
 
 import java.util.ArrayList;
@@ -18,6 +19,12 @@ public class TermDbHandler extends SQLiteOpenHelper {
     private static final String LOG = "DatabaseHelper";
     private static final int DB_VERSION = 1;
     private static final String DB_NAME = "termTrackerDb";
+
+    public static final Status statusPlanToTake = new Status(0, "Plan To Take");
+    public static final Status statusInProgres = new Status(1, "In Progress");
+    public static final Status statusCompleted = new Status(2, "Completed");
+    public static final Status statusDropped = new Status(3, "Dropped");
+
 
     //Term Table
     public static final String TABLE_TERM = "term";
@@ -147,12 +154,30 @@ public class TermDbHandler extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+        ContentValues planToTake = new ContentValues();
+        planToTake.put(STATUS_ID, statusPlanToTake.getId());
+        planToTake.put(STATUS_NAME, statusPlanToTake.getName());
+        ContentValues inProgress = new ContentValues();
+        inProgress.put(STATUS_ID, statusInProgres.getId());
+        inProgress.put(STATUS_NAME, statusInProgres.getName());
+        ContentValues completed = new ContentValues();
+        completed.put(STATUS_ID, statusCompleted.getId());
+        completed.put(STATUS_NAME, statusCompleted.getName());
+        ContentValues dropped = new ContentValues();
+        dropped.put(STATUS_ID, statusDropped.getId());
+        dropped.put(STATUS_NAME, statusDropped.getName());
+
+
         try {
             db.execSQL(CREATE_TERM_TABLE);
             db.execSQL(CREATE_COURSE_TABLE);
             db.execSQL(CREATE_MENTOR_TABLE);
             db.execSQL(CREATE_STATUS_TABLE);
-            db.execSQL(INSERT_STATUS);
+            db.insert(TABLE_STATUS, null, planToTake);
+            db.insert(TABLE_STATUS, null, inProgress);
+            db.insert(TABLE_STATUS, null, completed);
+            db.insert(TABLE_STATUS, null, dropped);
+            //db.execSQL(INSERT_STATUS);
             db.execSQL(CREATE_ASSESSMENT_TYPE_TABLE);
             db.execSQL(INSERT_ASSESSMENT_TYPE);
             db.execSQL(CREATE_ASSESSMENT_TABLE);

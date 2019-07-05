@@ -6,6 +6,7 @@ public class Mentor {
     String phone;
     String email;
 
+    public Mentor () {}
     public Mentor (String name, String phone, String email) {
         this.name = name;
         this.phone = phone;

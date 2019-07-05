@@ -68,7 +68,7 @@ public class TermView extends AppCompatActivity {
         //TODO: place to figure out where I need to put the query to get the statuses.  Maybe
         //TODO: I do need to go in and put my objects back to nested objects instead of IDs,
         //TODO: either that or I need to nest the queries, and set the nested objects somehow.
-        //TODO: probably need to do a join operation in the db query.  
+        //TODO: probably need to do a join operation in the db query.
     }
 
 }

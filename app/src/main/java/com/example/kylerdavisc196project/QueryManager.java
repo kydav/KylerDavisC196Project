@@ -6,7 +6,6 @@ import android.database.Cursor;
 import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.text.format.DateFormat;
 import android.util.Log;
 
 import com.example.kylerdavisc196project.model.Assessment;
@@ -17,8 +16,6 @@ import com.example.kylerdavisc196project.model.Status;
 import com.example.kylerdavisc196project.model.Term;
 
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -92,9 +89,9 @@ public class QueryManager {
         val.put(TermDbHandler.COURSE_DESCRIPTION, course.getDescription());
         val.put(TermDbHandler.COURSE_START_DATE, course.getStartDate());
         val.put(TermDbHandler.COURSE_END_DATE, course.getEndDate());
-        val.put(TermDbHandler.COURSE_STATUS_ID, course.getStatus());
-        val.put(TermDbHandler.COURSE_MENTOR_ID, course.getMentor());
-        val.put(TermDbHandler.COURSE_TERM_ID, course.getTerm());
+        val.put(TermDbHandler.COURSE_STATUS_ID, course.getStatus().getId());
+        val.put(TermDbHandler.COURSE_MENTOR_ID, course.getMentor().getId());
+        val.put(TermDbHandler.COURSE_TERM_ID, course.getTerm().getId());
         long id = database.insert(TermDbHandler.TABLE_COURSE, null, val);
         return id;
     }
@@ -220,7 +217,20 @@ public class QueryManager {
     }
     //Select Single Course
     public Course selectCourse(int id) {
-        Cursor cursor = database.query(TermDbHandler.TABLE_COURSE,allTermColumns, TermDbHandler.COURSE_ID + "=?",new String[]{String.valueOf(id)},null,null, null, null);
+        String rawQuery ="SELECT " +
+                "c." + TermDbHandler.COURSE_ID + ", c." + TermDbHandler.COURSE_NAME + ", c." + TermDbHandler.COURSE_DESCRIPTION + ", c." + TermDbHandler.COURSE_START_DATE +
+                ", c." + TermDbHandler.COURSE_END_DATE + ", c." + TermDbHandler.COURSE_STATUS_ID + ", c. " + TermDbHandler.COURSE_TERM_ID + ", c." +TermDbHandler.COURSE_MENTOR_ID +
+                ", c." + TermDbHandler.COURSE_TERM_ID + ", s." + TermDbHandler.STATUS_NAME + ", m." + TermDbHandler.MENTOR_NAME +
+                ", m." + TermDbHandler.MENTOR_EMAIL + ", m." + TermDbHandler.MENTOR_PHONE + ", t." + TermDbHandler.TERM_NAME +
+                ", t." + TermDbHandler.TERM_START_DATE + ", t." + TermDbHandler.TERM_END_DATE +
+                " FROM " + TermDbHandler.TABLE_COURSE + " c " +
+                " INNER JOIN " + TermDbHandler.TABLE_STATUS + " s ON c." + TermDbHandler.COURSE_STATUS_ID + " = s." + TermDbHandler.STATUS_ID +
+                " INNER JOIN " + TermDbHandler.TABLE_TERM + " t ON c." + TermDbHandler.COURSE_TERM_ID + " = t." + TermDbHandler.TERM_ID  +
+                " INNER JOIN " + TermDbHandler.TABLE_MENTOR + " m ON c." + TermDbHandler.COURSE_MENTOR_ID + " = m." + TermDbHandler.MENTOR_ID +
+                " WHERE c." + TermDbHandler.COURSE_ID + " = " + id;
+        Cursor cursor = database.rawQuery(rawQuery, null);
+        //Cursor cursor = database.query(TermDbHandler.TABLE_COURSE,allTermColumns, TermDbHandler.COURSE_ID + "=?",new String[]{String.valueOf(id)},null,null, null, null);
+//
 //        if (cursor != null)
 //            cursor.moveToFirst();
 //        Course c = new Course(
@@ -233,35 +243,72 @@ public class QueryManager {
 //                cursor.getInt(6),
 //                cursor.getInt(7));
         Course c = new Course();
+        Status s = new Status();
+        Term t = new Term();
+        Mentor m = new Mentor();
         if (cursor != null) {
             cursor.moveToFirst();
             c.setName(cursor.getString(cursor.getColumnIndex(TermDbHandler.COURSE_NAME)));
             c.setDescription(cursor.getString(cursor.getColumnIndex(TermDbHandler.COURSE_DESCRIPTION)));
             c.setStartDate(cursor.getString(cursor.getColumnIndex(TermDbHandler.COURSE_START_DATE)));
             c.setEndDate(cursor.getString(cursor.getColumnIndex(TermDbHandler.COURSE_END_DATE)));
-            c.setStatus(cursor.getInt(cursor.getColumnIndex(TermDbHandler.COURSE_STATUS_ID)));
-            c.setTerm(cursor.getInt(cursor.getColumnIndex(TermDbHandler.COURSE_TERM_ID)));
-            c.setMentor(cursor.getInt(cursor.getColumnIndex(TermDbHandler.COURSE_MENTOR_ID)));
+            s.setId(cursor.getInt(cursor.getColumnIndex(TermDbHandler.COURSE_STATUS_ID)));
+            s.setName(cursor.getString(cursor.getColumnIndex(TermDbHandler.STATUS_NAME)));
+            c.setStatus(s);
+            t.setId(cursor.getInt(cursor.getColumnIndex(TermDbHandler.COURSE_TERM_ID)));
+            t.setName(cursor.getString(cursor.getColumnIndex(TermDbHandler.TERM_NAME)));
+            t.setStartDate(cursor.getString(cursor.getColumnIndex(TermDbHandler.TERM_START_DATE)));
+            t.setEndDate(cursor.getString(cursor.getColumnIndex(TermDbHandler.TERM_END_DATE)));
+            c.setTerm(t);
+            m.setId(cursor.getInt(cursor.getColumnIndex(TermDbHandler.COURSE_MENTOR_ID)));
+            m.setName(cursor.getString(cursor.getColumnIndex(TermDbHandler.MENTOR_NAME)));
+            m.setPhone(cursor.getString(cursor.getColumnIndex(TermDbHandler.MENTOR_PHONE)));
+            m.setEmail(cursor.getString(cursor.getColumnIndex(TermDbHandler.MENTOR_EMAIL)));
+            c.setMentor(m);
         }
         return c;
     }
     //Select All Courses
     public List<Course> selectAllCourses() {
-        Cursor cursor = database.query(TermDbHandler.TABLE_COURSE,allCourseColumns,null,null,null, null, null);
+        String rawQuery ="SELECT " +
+                "c." + TermDbHandler.COURSE_ID + ", c." + TermDbHandler.COURSE_NAME + ", c." + TermDbHandler.COURSE_DESCRIPTION + ", c." + TermDbHandler.COURSE_START_DATE +
+                ", c." + TermDbHandler.COURSE_END_DATE + ", c." + TermDbHandler.COURSE_STATUS_ID + ", c. " + TermDbHandler.COURSE_TERM_ID + ", c." +TermDbHandler.COURSE_MENTOR_ID +
+                ", c." + TermDbHandler.COURSE_TERM_ID + ", s." + TermDbHandler.STATUS_NAME + ", m." + TermDbHandler.MENTOR_NAME +
+                ", m." + TermDbHandler.MENTOR_EMAIL + ", m." + TermDbHandler.MENTOR_PHONE + ", t." + TermDbHandler.TERM_NAME +
+                ", t." + TermDbHandler.TERM_START_DATE + ", t." + TermDbHandler.TERM_END_DATE +
+                " FROM " + TermDbHandler.TABLE_COURSE + " c " +
+                "INNER JOIN " + TermDbHandler.TABLE_STATUS + " s ON c." + TermDbHandler.COURSE_STATUS_ID + " = s." + TermDbHandler.STATUS_ID + " " +
+                "INNER JOIN " + TermDbHandler.TABLE_TERM + " t ON c." + TermDbHandler.COURSE_TERM_ID + " = t." + TermDbHandler.TERM_ID + " " +
+                "INNER JOIN " + TermDbHandler.TABLE_MENTOR + " m ON c." + TermDbHandler.COURSE_MENTOR_ID + " = m." + TermDbHandler.MENTOR_ID;
+        Cursor cursor = database.rawQuery(rawQuery, null);
+        //Cursor cursor = database.query(TermDbHandler.TABLE_COURSE,allCourseColumns,null,null,null, null, null);
         // Log.e(LOG, selectQuery);
         List<Course> courses =  new ArrayList<>();
 
         if (cursor.getCount()> 0) {
             while(cursor.moveToNext()) {
                 Course cd = new Course();
+                Status sd = new Status();
+                Term td = new Term();
+                Mentor md = new Mentor();
                 cd.setId(cursor.getInt(cursor.getColumnIndex(TermDbHandler.COURSE_ID)));
                 cd.setName(cursor.getString(cursor.getColumnIndex(TermDbHandler.COURSE_NAME)));
                 cd.setDescription(cursor.getString(cursor.getColumnIndex(TermDbHandler.COURSE_DESCRIPTION)));
                 cd.setStartDate(cursor.getString(cursor.getColumnIndex(TermDbHandler.COURSE_START_DATE)));
                 cd.setEndDate(cursor.getString(cursor.getColumnIndex(TermDbHandler.COURSE_END_DATE)));
-                cd.setStatus(cursor.getInt(cursor.getColumnIndex(TermDbHandler.COURSE_STATUS_ID)));
-                cd.setTerm(cursor.getInt(cursor.getColumnIndex(TermDbHandler.COURSE_TERM_ID)));
-                cd.setMentor(cursor.getInt(cursor.getColumnIndex(TermDbHandler.COURSE_MENTOR_ID)));
+                sd.setId(cursor.getInt(cursor.getColumnIndex(TermDbHandler.COURSE_STATUS_ID)));
+                sd.setName(cursor.getString(cursor.getColumnIndex(TermDbHandler.STATUS_NAME)));
+                cd.setStatus(sd);
+                td.setId(cursor.getInt(cursor.getColumnIndex(TermDbHandler.COURSE_TERM_ID)));
+                td.setName(cursor.getString(cursor.getColumnIndex(TermDbHandler.TERM_NAME)));
+                td.setStartDate(cursor.getString(cursor.getColumnIndex(TermDbHandler.TERM_START_DATE)));
+                td.setEndDate(cursor.getString(cursor.getColumnIndex(TermDbHandler.TERM_END_DATE)));
+                cd.setTerm(td);
+                md.setId(cursor.getInt(cursor.getColumnIndex(TermDbHandler.COURSE_MENTOR_ID)));
+                md.setName(cursor.getString(cursor.getColumnIndex(TermDbHandler.MENTOR_NAME)));
+                md.setPhone(cursor.getString(cursor.getColumnIndex(TermDbHandler.MENTOR_PHONE)));
+                md.setEmail(cursor.getString(cursor.getColumnIndex(TermDbHandler.MENTOR_EMAIL)));
+                cd.setMentor(md);
                 courses.add(cd);
             }
         }
@@ -269,21 +316,47 @@ public class QueryManager {
     }
     //Select Courses by Term
     public List<Course> selectCoursesByTerm(int termId) {
-        Cursor cursor = database.query(TermDbHandler.TABLE_COURSE,allCourseColumns, TermDbHandler.COURSE_TERM_ID + "=?",new String[]{String.valueOf(termId)},null,null, null, null);
+        String rawQuery ="SELECT " +
+                "c." + TermDbHandler.COURSE_ID + ", c." + TermDbHandler.COURSE_NAME + ", c." + TermDbHandler.COURSE_DESCRIPTION + ", c." + TermDbHandler.COURSE_START_DATE +
+                ", c." + TermDbHandler.COURSE_END_DATE + ", c." + TermDbHandler.COURSE_STATUS_ID + ", c. " + TermDbHandler.COURSE_TERM_ID + ", c." +TermDbHandler.COURSE_MENTOR_ID +
+                ", c." + TermDbHandler.COURSE_TERM_ID + ", s." + TermDbHandler.STATUS_NAME + ", m." + TermDbHandler.MENTOR_NAME +
+                ", m." + TermDbHandler.MENTOR_EMAIL + ", m." + TermDbHandler.MENTOR_PHONE + ", t." + TermDbHandler.TERM_NAME +
+                ", t." + TermDbHandler.TERM_START_DATE + ", t." + TermDbHandler.TERM_END_DATE +
+                " FROM " + TermDbHandler.TABLE_COURSE + " c " +
+                " JOIN " + TermDbHandler.TABLE_STATUS + " s ON c." + TermDbHandler.COURSE_STATUS_ID + " = s." + TermDbHandler.STATUS_ID +
+                " JOIN " + TermDbHandler.TABLE_TERM + " t ON c." + TermDbHandler.COURSE_TERM_ID + " = t." + TermDbHandler.TERM_ID +
+                " JOIN " + TermDbHandler.TABLE_MENTOR + " m ON c." + TermDbHandler.COURSE_MENTOR_ID + " = m." + TermDbHandler.MENTOR_ID +
+                " WHERE c." + TermDbHandler.COURSE_TERM_ID + " = " + termId;
+        System.out.println(rawQuery);
+        //Cursor cursor = database.query(TermDbHandler.TABLE_COURSE,allCourseColumns, TermDbHandler.COURSE_TERM_ID + "=?",new String[]{String.valueOf(termId)},null,null, null, null);
         // Log.e(LOG, selectQuery);
+        Cursor cursor = database.rawQuery(rawQuery,null);
         List<Course> courses =  new ArrayList<>();
 
         if (cursor.getCount()> 0) {
             while(cursor.moveToNext()) {
                 Course cd = new Course();
+                Mentor md = new Mentor();
+                Term td = new Term();
+                Status sd = new Status();
                 cd.setId(cursor.getInt(cursor.getColumnIndex(TermDbHandler.COURSE_ID)));
                 cd.setName(cursor.getString(cursor.getColumnIndex(TermDbHandler.COURSE_NAME)));
                 cd.setDescription(cursor.getString(cursor.getColumnIndex(TermDbHandler.COURSE_DESCRIPTION)));
                 cd.setStartDate(transformedDate(cursor.getString(cursor.getColumnIndex(TermDbHandler.COURSE_START_DATE))));
                 cd.setEndDate(transformedDate(cursor.getString(cursor.getColumnIndex(TermDbHandler.COURSE_END_DATE))));
-                cd.setStatus(cursor.getInt(cursor.getColumnIndex(TermDbHandler.COURSE_STATUS_ID)));
-                cd.setTerm(cursor.getInt(cursor.getColumnIndex(TermDbHandler.COURSE_TERM_ID)));
-                cd.setMentor(cursor.getInt(cursor.getColumnIndex(TermDbHandler.COURSE_MENTOR_ID)));
+                md.setId(cursor.getInt(cursor.getColumnIndex(TermDbHandler.COURSE_MENTOR_ID)));
+                md.setName(cursor.getString(cursor.getColumnIndex(TermDbHandler.MENTOR_NAME)));
+                md.setEmail(cursor.getString(cursor.getColumnIndex(TermDbHandler.MENTOR_EMAIL)));
+                md.setPhone(cursor.getString(cursor.getColumnIndex(TermDbHandler.MENTOR_PHONE)));
+                cd.setMentor(md);
+                td.setId(cursor.getInt(cursor.getColumnIndex(TermDbHandler.COURSE_TERM_ID)));
+                td.setName(cursor.getString(cursor.getColumnIndex(TermDbHandler.TERM_NAME)));
+                td.setStartDate(cursor.getString(cursor.getColumnIndex(TermDbHandler.TERM_START_DATE)));
+                td.setEndDate(cursor.getString(cursor.getColumnIndex(TermDbHandler.TERM_END_DATE)));
+                cd.setTerm(td);
+                sd.setId(cursor.getInt(cursor.getColumnIndex(TermDbHandler.COURSE_STATUS_ID)));
+                sd.setName(cursor.getString(cursor.getColumnIndex(TermDbHandler.STATUS_NAME)));
+                cd.setStatus(sd);
                 courses.add(cd);
             }
         }
@@ -334,9 +407,9 @@ public class QueryManager {
         val.put(TermDbHandler.COURSE_DESCRIPTION, course.getDescription());
         val.put(TermDbHandler.COURSE_START_DATE, course.getStartDate());
         val.put(TermDbHandler.COURSE_END_DATE, course.getEndDate());
-        val.put(TermDbHandler.COURSE_STATUS_ID, course.getStatus());
-        val.put(TermDbHandler.COURSE_MENTOR_ID, course.getMentor());
-        val.put(TermDbHandler.COURSE_TERM_ID, course.getTerm());
+        val.put(TermDbHandler.COURSE_STATUS_ID, course.getStatus().getId());
+        val.put(TermDbHandler.COURSE_MENTOR_ID, course.getMentor().getId());
+        val.put(TermDbHandler.COURSE_TERM_ID, course.getTerm().getId());
         long id = database.update(TermDbHandler.TABLE_COURSE, val, TermDbHandler.COURSE_ID + "=" + course.getId(), null);
         return id;
     }

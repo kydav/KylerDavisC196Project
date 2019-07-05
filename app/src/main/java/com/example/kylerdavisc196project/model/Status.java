@@ -4,6 +4,7 @@ public class Status {
     int id;
     String name;
 
+    public Status () {    }
     public Status (String name) {
         this.name = name;
     }
