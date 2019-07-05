@@ -132,68 +132,68 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void generateTestData() {
-        Term termOne = new Term("Term 1", "20190701", "20191231");
+        Term termOne = new Term(1, "Term 1", "20190701", "20191231");
         QM.insertTerm(termOne);
-        Term termTwo = new Term("Term 2", "20200101", "20200630");
+        Term termTwo = new Term(2, "Term 2", "20200101", "20200630");
         QM.insertTerm(termTwo);
-        Term termThree = new Term("Term 3", "20200701", "20201231");
+        Term termThree = new Term(3, "Term 3", "20200701", "20201231");
         QM.insertTerm(termThree);
 
-        Mentor mentorOne = new Mentor("James Smith", "123-456-1234", "james.smith@wgu.edu");
+        Mentor mentorOne = new Mentor(1, "James Smith", "123-456-1234", "james.smith@wgu.edu");
         QM.insertMentor(mentorOne);
-        Mentor mentorTwo = new Mentor("Michael Smith", "123-456-1235", "michael.smith@wgu.edu");
+        Mentor mentorTwo = new Mentor(2, "Michael Smith", "123-456-1235", "michael.smith@wgu.edu");
         QM.insertMentor(mentorTwo);
-        Mentor mentorThree = new Mentor("Robert Smith", "123-456-1236", "robert.smith@wgu.edu");
+        Mentor mentorThree = new Mentor(3, "Robert Smith", "123-456-1236", "robert.smith@wgu.edu");
         QM.insertMentor(mentorThree);
-        Mentor mentorFour = new Mentor("Maria Garcia", "123-456-1237", "maria.garcia@wgu.edu");
+        Mentor mentorFour = new Mentor(4, "Maria Garcia", "123-456-1237", "maria.garcia@wgu.edu");
         QM.insertMentor(mentorFour);
-        Mentor mentorFive = new Mentor("David Smith", "123-456-1238", "david.smith@wgu.edu");
+        Mentor mentorFive = new Mentor(5, "David Smith", "123-456-1238", "david.smith@wgu.edu");
         QM.insertMentor(mentorFive);
-        Mentor mentorSix = new Mentor("Maria Rodriguez", "123-456-1239", "maria.rodriquez@wgu.edu");
+        Mentor mentorSix = new Mentor(6, "Maria Rodriguez", "123-456-1239", "maria.rodriquez@wgu.edu");
         QM.insertMentor(mentorSix);
-        Mentor mentorSeven = new Mentor("Mary Smith", "123-456-1241", "mary.smith@wgu.edu");
+        Mentor mentorSeven = new Mentor(7, "Mary Smith", "123-456-1241", "mary.smith@wgu.edu");
         QM.insertMentor(mentorSeven);
-        Mentor mentorEight = new Mentor("Maria Hernandez", "123-456-1242", "maria.hernandez@wgu.edu");
+        Mentor mentorEight = new Mentor(8, "Maria Hernandez", "123-456-1242", "maria.hernandez@wgu.edu");
         QM.insertMentor(mentorEight);
-        Mentor mentorNine = new Mentor("James Johnson", "123-456-1243", "james.johnson@wgu.edu");
+        Mentor mentorNine = new Mentor(9, "James Johnson", "123-456-1243", "james.johnson@wgu.edu");
         QM.insertMentor(mentorNine);
 
-        Course courseOne = new Course("Course 1", "Course 1 Description", "20190701", "20190831", TermDbHandler.statusInProgres, termOne, mentorOne);
+        Course courseOne = new Course(1, "Course 1", "Course 1 Description", "20190701", "20190831", TermDbHandler.statusInProgres, termOne, mentorOne);
         QM.insertCourse(courseOne);
-        Course courseTwo = new Course("Course 2", "Course 2 Description", "20190901", "20191031", TermDbHandler.statusPlanToTake, termOne, mentorTwo);
+        Course courseTwo = new Course(2, "Course 2", "Course 2 Description", "20190901", "20191031", TermDbHandler.statusPlanToTake, termOne, mentorTwo);
         QM.insertCourse(courseTwo);
-        Course courseThree = new Course("Course 3", "Course 3 Description", "20191101", "20201231", TermDbHandler.statusPlanToTake, termOne, mentorThree);
+        Course courseThree = new Course(3, "Course 3", "Course 3 Description", "20191101", "20201231", TermDbHandler.statusPlanToTake, termOne, mentorThree);
         QM.insertCourse(courseThree);
-        Course courseFour = new Course("Course 4", "Course 4 Description", "20200101", "20200229", TermDbHandler.statusPlanToTake, termTwo, mentorFour);
+        Course courseFour = new Course(4, "Course 4", "Course 4 Description", "20200101", "20200229", TermDbHandler.statusPlanToTake, termTwo, mentorFour);
         QM.insertCourse(courseFour);
-        Course courseFive = new Course("Course 5", "Course 5 Description", "20200301", "20200430", TermDbHandler.statusPlanToTake, termTwo, mentorFive);
+        Course courseFive = new Course(5, "Course 5", "Course 5 Description", "20200301", "20200430", TermDbHandler.statusPlanToTake, termTwo, mentorFive);
         QM.insertCourse(courseFive);
-        Course courseSix = new Course("Course 6", "Course 6 Description", "20200501", "20200630", TermDbHandler.statusPlanToTake, termTwo, mentorSix);
+        Course courseSix = new Course(6, "Course 6", "Course 6 Description", "20200501", "20200630", TermDbHandler.statusPlanToTake, termTwo, mentorSix);
         QM.insertCourse(courseSix);
-        Course courseSeven = new Course("Course 7", "Course 7 Description", "20200701", "20200831", TermDbHandler.statusPlanToTake, termThree, mentorSeven);
+        Course courseSeven = new Course(7, "Course 7", "Course 7 Description", "20200701", "20200831", TermDbHandler.statusPlanToTake, termThree, mentorSeven);
         QM.insertCourse(courseSeven);
-        Course courseEight = new Course("Course 8", "Course 8 Description", "20200901", "20201031", TermDbHandler.statusPlanToTake, termThree, mentorEight);
+        Course courseEight = new Course(8, "Course 8", "Course 8 Description", "20200901", "20201031", TermDbHandler.statusPlanToTake, termThree, mentorEight);
         QM.insertCourse(courseEight);
-        Course courseNine = new Course("Course 9", "Course 9 Description", "20201101", "20201231", TermDbHandler.statusPlanToTake, termThree, mentorNine);
+        Course courseNine = new Course(9, "Course 9", "Course 9 Description", "20201101", "20201231", TermDbHandler.statusPlanToTake, termThree, mentorNine);
         QM.insertCourse(courseNine);
 
-        Assessment assessmentOne = new Assessment("Course 1 Assessment", "20190831", 1, 1);
+        Assessment assessmentOne = new Assessment(1, "Course 1 Assessment", "20190831", 1, 1);
         QM.insertAssessment(assessmentOne);
-        Assessment assessmentTwo = new Assessment("Course 2 Assessment", "20191031", 1, 2);
+        Assessment assessmentTwo = new Assessment(2, "Course 2 Assessment", "20191031", 1, 2);
         QM.insertAssessment(assessmentTwo);
-        Assessment assessmentThree = new Assessment("Course 3 Assessment", "20191231", 2, 3);
+        Assessment assessmentThree = new Assessment(3, "Course 3 Assessment", "20191231", 2, 3);
         QM.insertAssessment(assessmentThree);
-        Assessment assessmentFour = new Assessment("Course 4 Assessment", "20200229", 1, 4);
+        Assessment assessmentFour = new Assessment(4, "Course 4 Assessment", "20200229", 1, 4);
         QM.insertAssessment(assessmentFour);
-        Assessment assessmentFive = new Assessment("Course 5 Assessment", "20200430", 2, 5);
+        Assessment assessmentFive = new Assessment(5, "Course 5 Assessment", "20200430", 2, 5);
         QM.insertAssessment(assessmentFive);
-        Assessment assessmentSix = new Assessment("Course 6 Assessment", "20200630", 2, 6);
+        Assessment assessmentSix = new Assessment(6, "Course 6 Assessment", "20200630", 2, 6);
         QM.insertAssessment(assessmentSix);
-        Assessment assessmentSeven = new Assessment("Course 7 Assessment", "20200831", 1, 7);
+        Assessment assessmentSeven = new Assessment(7, "Course 7 Assessment", "20200831", 1, 7);
         QM.insertAssessment(assessmentSeven);
-        Assessment assessmentEight = new Assessment("Course 8 Assessment", "20201031", 2, 8);
+        Assessment assessmentEight = new Assessment(8, "Course 8 Assessment", "20201031", 2, 8);
         QM.insertAssessment(assessmentEight);
-        Assessment assessmentNine = new Assessment("Course 9 Assessment", "20201231", 1, 9);
+        Assessment assessmentNine = new Assessment(9, "Course 9 Assessment", "20201231", 1, 9);
         QM.insertAssessment(assessmentNine);
 
         QM.insertNote("Lorem ipsum dolor sit amet, consectetur adipiscing elit, " +
