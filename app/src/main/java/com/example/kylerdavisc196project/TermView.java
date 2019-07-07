@@ -6,6 +6,8 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -43,6 +45,26 @@ public class TermView extends AppCompatActivity {
         setUpTitleAndDates();
         setUpListView();
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_term_view, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if(id == R.id.action_edit_term) {
+            Intent intent = new Intent(getApplicationContext(),TermEdit.class);
+            termId = termToView.getId();
+            intent.putExtra(TermDbHandler.TERM_ID, termId);
+            startActivity(intent);
+        }else if(id == R.id.action_delete_term) {
+
+        }
+        return super.onOptionsItemSelected(item);
+    }
     private void setUpTitleAndDates() {
         if(termId > 0) {
             termToView = QM.selectTerm((int) (long) termId);
@@ -56,12 +78,11 @@ public class TermView extends AppCompatActivity {
         }
     }
     private void setUpListView() {
-        if(termId > 0) {
+        if (termId > 0) {
             coursesToView = QM.selectCoursesByTerm((int) (long) termId);
         }
         courseListView = findViewById(R.id.termViewCourseListView);
-        courseAdapter = new CourseAdapter(this,coursesToView);
+        courseAdapter = new CourseAdapter(this, coursesToView);
         courseListView.setAdapter(courseAdapter);
     }
-
 }

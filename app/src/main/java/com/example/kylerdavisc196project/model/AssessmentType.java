@@ -4,6 +4,7 @@ public class AssessmentType {
     int id;
     String name;
 
+    public AssessmentType () {}
     public AssessmentType (String name) {
         this.name = name;
     }

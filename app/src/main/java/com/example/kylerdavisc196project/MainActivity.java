@@ -24,6 +24,8 @@ public class MainActivity extends AppCompatActivity {
     private CoordinatorLayout coordinatorLayout;
     private long termId;
     private ImageButton currentTermButton;
+    private ImageButton createNewTermButton;
+    private ImageButton termListButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +44,20 @@ public class MainActivity extends AppCompatActivity {
             termId = QM.currentTerm().getId();
             intent.putExtra(TermDbHandler.TERM_ID, termId);
             startActivity(intent);}
+        });
+        createNewTermButton = findViewById(R.id.createTermButton);
+        createNewTermButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), TermCreate.class);
+                startActivity(intent);
+            }
+        });
+        termListButton = findViewById(R.id.termListButton);
+        termListButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), TermList.class);
+                startActivity(intent);
+            }
         });
     }
 

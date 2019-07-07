@@ -1,6 +1,7 @@
 package com.example.kylerdavisc196project.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -11,7 +12,9 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.kylerdavisc196project.CourseView;
 import com.example.kylerdavisc196project.R;
+import com.example.kylerdavisc196project.TermDbHandler;
 import com.example.kylerdavisc196project.model.Course;
 
 import java.util.ArrayList;
@@ -30,24 +33,32 @@ public class CourseAdapter extends ArrayAdapter<Course> {
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-            View listItem = convertView;
-            if(listItem  == null)
-                listItem = LayoutInflater.from(mContext).inflate(R.layout.list_item_course, parent,false);
+        View listItem = convertView;
+        if(listItem  == null)
+            listItem = LayoutInflater.from(mContext).inflate(R.layout.list_item_course, parent,false);
 
-            Course currentCourse = courseList.get(position);
-            TextView name = (TextView) listItem.findViewById(R.id.course_name);
-            name.setText(currentCourse.getName());
+        Course currentCourse = courseList.get(position);
+        final long courseId = currentCourse.getId();
+        listItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), CourseView.class);
+                intent.putExtra(TermDbHandler.COURSE_ID, courseId);
+                mContext.startActivity(intent);
+            }
+        });
+        TextView name = (TextView) listItem.findViewById(R.id.course_name);
+        name.setText(currentCourse.getName());
 
-            TextView start = (TextView) listItem.findViewById(R.id.course_start);
-            start.setText(currentCourse.getStartDate());
+        TextView start = (TextView) listItem.findViewById(R.id.course_start);
+        start.setText(currentCourse.getStartDate());
 
-            TextView end = (TextView) listItem.findViewById(R.id.course_end);
-            end.setText(currentCourse.getEndDate());
+        TextView end = (TextView) listItem.findViewById(R.id.course_end);
+        end.setText(currentCourse.getEndDate());
 
-            TextView status = (TextView) listItem.findViewById(R.id.course_status);
-            status.setText(currentCourse.getStatus().getName());
+        TextView status = (TextView) listItem.findViewById(R.id.course_status);
+        status.setText(currentCourse.getStatus().getName());
 
-            return listItem;
-
+        return listItem;
     }
 }

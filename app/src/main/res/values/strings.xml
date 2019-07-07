@@ -9,4 +9,8 @@
     <string name="home_create_term_button">Create Term Button</string>
     <string name="home_current_term_button">Current Term Button</string>
     <string name="home_term_list_button">Term List Button</string>
+    <string name="edit_term">Edit Term</string>
+    <string name="delete_term">Delete Term</string>
+    <string name="cancel">Cancel</string>
+
 </resources>
