@@ -12,5 +12,12 @@
     <string name="edit_term">Edit Term</string>
     <string name="delete_term">Delete Term</string>
     <string name="cancel">Cancel</string>
-
+    <string name="title_activity_the_course_view">TheCourseView</string>
+    <string name="course_description">Course Description</string>
+    <string name="course_start_date">Course Start Date:</string>
+    <string name="course_end_date">Course End Date:</string>
+    <string name="course_status">Course Status:</string>
+    <string name="mentor_info">Mentor Info.</string>
+    <string name="assessments">Assessments</string>
+    <string name="notes">Notes</string>
 </resources>

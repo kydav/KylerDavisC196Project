@@ -109,8 +109,7 @@ public class QueryManager {
         ContentValues val = new ContentValues();
         val.put(TermDbHandler.ASSESSMENT_NAME, assessment.getName());
         val.put(TermDbHandler.ASSESSMENT_DUE_DATE, assessment.getDueDate());
-        //TODO:NEED TO REFACTOR THIS SINCE I CHANGED TYPE TO BE TYPE OBJECT IN ASSESSMENT
-        //val.put(TermDbHandler.ASSESSMENT_ASSESSMENT_TYPE_ID, assessment.getTypeId());
+        val.put(TermDbHandler.ASSESSMENT_ASSESSMENT_TYPE_ID, assessment.getType().getId());
         val.put(TermDbHandler.ASSESSMENT_COURSE_ID, assessment.getCourseId());
         long id = database.insert(TermDbHandler.TABLE_ASSESSMENT, null, val);
         return id;
@@ -350,8 +349,8 @@ public class QueryManager {
                 cd.setMentor(md);
                 td.setId(cursor.getInt(cursor.getColumnIndex(TermDbHandler.COURSE_TERM_ID)));
                 td.setName(cursor.getString(cursor.getColumnIndex(TermDbHandler.TERM_NAME)));
-                td.setStartDate(cursor.getString(cursor.getColumnIndex(TermDbHandler.TERM_START_DATE)));
-                td.setEndDate(cursor.getString(cursor.getColumnIndex(TermDbHandler.TERM_END_DATE)));
+                td.setStartDate(transformedDate(cursor.getString(cursor.getColumnIndex(TermDbHandler.TERM_START_DATE))));
+                td.setEndDate(transformedDate(cursor.getString(cursor.getColumnIndex(TermDbHandler.TERM_END_DATE))));
                 cd.setTerm(td);
                 sd.setId(cursor.getInt(cursor.getColumnIndex(TermDbHandler.COURSE_STATUS_ID)));
                 sd.setName(cursor.getString(cursor.getColumnIndex(TermDbHandler.STATUS_NAME)));
@@ -381,11 +380,26 @@ public class QueryManager {
     }
     //Select Assessment
     public Assessment selectAssessment(int id) {
-        Cursor cursor = database.query(TermDbHandler.TABLE_ASSESSMENT,allAssessmentColumns, TermDbHandler.ASSESSMENT_ID + "=?",new String[]{String.valueOf(id)},null,null,null);
+        //Cursor cursor = database.query(TermDbHandler.TABLE_ASSESSMENT,allAssessmentColumns, TermDbHandler.ASSESSMENT_ID + "=?",new String[]{String.valueOf(id)},null,null,null);
+        String rawQuery = "SELECT " +
+                "a." + TermDbHandler.ASSESSMENT_ID + ", a." + TermDbHandler.ASSESSMENT_NAME + ", a." + TermDbHandler.ASSESSMENT_DUE_DATE +
+                ", at." + TermDbHandler.ASSESSMENT_TYPE_ID + ", at." + TermDbHandler.ASSESSMENT_TYPE_NAME +
+                " FROM " + TermDbHandler.TABLE_ASSESSMENT + " a " +
+                " JOIN " + TermDbHandler.TABLE_ASSESSMENT_TYPE + " at ON a." + TermDbHandler.ASSESSMENT_ASSESSMENT_TYPE_ID + " = at." + TermDbHandler.ASSESSMENT_TYPE_ID +
+                " WHERE c." + TermDbHandler.ASSESSMENT_ID + " = " + id;
+        Cursor cursor = database.rawQuery(rawQuery,null);
         if (cursor != null)
             cursor.moveToFirst();
+
         Assessment a = new Assessment();
-        //TODO FINISH WRITING THIS GUY OUT
+        AssessmentType at = new AssessmentType();
+        at.setId(cursor.getInt(cursor.getColumnIndex(TermDbHandler.ASSESSMENT_TYPE_ID)));
+        at.setName(cursor.getString(cursor.getColumnIndex(TermDbHandler.ASSESSMENT_TYPE_NAME)));
+        a.setId(cursor.getInt(cursor.getColumnIndex(TermDbHandler.ASSESSMENT_ID)));
+        a.setName(cursor.getString(cursor.getColumnIndex(TermDbHandler.ASSESSMENT_NAME)));
+        a.setType(at);
+        a.setDueDate(transformedDate(cursor.getString(cursor.getColumnIndex(TermDbHandler.ASSESSMENT_DUE_DATE))));
+        a.setCourseId(cursor.getInt(cursor.getColumnIndex(TermDbHandler.ASSESSMENT_COURSE_ID)));
         return a;
     }
     //Select Assessments by Course
@@ -395,7 +409,7 @@ public class QueryManager {
                 ", at." + TermDbHandler.ASSESSMENT_TYPE_ID + ", at." + TermDbHandler.ASSESSMENT_TYPE_NAME +
                 " FROM " + TermDbHandler.TABLE_ASSESSMENT + " a " +
                 " JOIN " + TermDbHandler.TABLE_ASSESSMENT_TYPE + " at ON a." + TermDbHandler.ASSESSMENT_ASSESSMENT_TYPE_ID + " = at." + TermDbHandler.ASSESSMENT_TYPE_ID +
-                " WHERE c." + TermDbHandler.ASSESSMENT_COURSE_ID + " = " + courseId;
+                " WHERE a." + TermDbHandler.ASSESSMENT_COURSE_ID + " = " + courseId;
         Cursor cursor = database.rawQuery(rawQuery,null);
         List<Assessment> assessments =  new ArrayList<>();
         if (cursor.getCount()> 0) {
@@ -452,8 +466,7 @@ public class QueryManager {
         ContentValues val = new ContentValues();
         val.put(TermDbHandler.ASSESSMENT_NAME, assessment.getName());
         val.put(TermDbHandler.ASSESSMENT_DUE_DATE, assessment.getDueDate());
-        //TODO: NEED TO REFACTOR THIS SINCE I CHANGED TYPE TO BE OBJECT TYPE IN ASSESSMENT
-        //val.put(TermDbHandler.ASSESSMENT_TYPE_ID, assessment.getType());
+        val.put(TermDbHandler.ASSESSMENT_TYPE_ID, assessment.getType().getId());
         val.put(TermDbHandler.ASSESSMENT_COURSE_ID, assessment.getCourseId());
         long id = database.update(TermDbHandler.TABLE_ASSESSMENT, val, TermDbHandler.ASSESSMENT_ID + "=" + assessment.getId(), null);
         return id;
@@ -470,8 +483,8 @@ public class QueryManager {
 
 
     //Delete Term
-    public long delete(Term term) {
-        long id = database.delete(TermDbHandler.TABLE_TERM, TermDbHandler.TERM_ID + " = " + term.getId(), null);
+    public long deleteTerm(int termId) {
+        long id = database.delete(TermDbHandler.TABLE_TERM, TermDbHandler.TERM_ID + " = " + termId, null);
         return id;
     }
     //Delete Course

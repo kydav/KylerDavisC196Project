@@ -10,11 +10,9 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import com.example.kylerdavisc196project.CourseView;
 import com.example.kylerdavisc196project.R;
 import com.example.kylerdavisc196project.TermDbHandler;
 import com.example.kylerdavisc196project.TermView;
-import com.example.kylerdavisc196project.model.Course;
 import com.example.kylerdavisc196project.model.Term;
 
 import java.util.ArrayList;

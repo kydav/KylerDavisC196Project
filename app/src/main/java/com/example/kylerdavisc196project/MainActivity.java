@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 
 import com.example.kylerdavisc196project.model.Assessment;
+import com.example.kylerdavisc196project.model.AssessmentType;
 import com.example.kylerdavisc196project.model.Course;
 import com.example.kylerdavisc196project.model.Mentor;
 import com.example.kylerdavisc196project.model.Term;
@@ -174,7 +175,7 @@ public class MainActivity extends AppCompatActivity {
         Mentor mentorNine = new Mentor(9, "James Johnson", "123-456-1243", "james.johnson@wgu.edu");
         QM.insertMentor(mentorNine);
 
-        Course courseOne = new Course(1, "Course 1", "Course 1 Description", "20190701", "20190831", TermDbHandler.statusInProgres, termOne, mentorOne);
+        Course courseOne = new Course(1, "Course 1", "Course 1 Description", "20190701", "20190831", TermDbHandler.statusInProgress, termOne, mentorOne);
         QM.insertCourse(courseOne);
         Course courseTwo = new Course(2, "Course 2", "Course 2 Description", "20190901", "20191031", TermDbHandler.statusPlanToTake, termOne, mentorTwo);
         QM.insertCourse(courseTwo);
@@ -192,24 +193,23 @@ public class MainActivity extends AppCompatActivity {
         QM.insertCourse(courseEight);
         Course courseNine = new Course(9, "Course 9", "Course 9 Description", "20201101", "20201231", TermDbHandler.statusPlanToTake, termThree, mentorNine);
         QM.insertCourse(courseNine);
-
-        Assessment assessmentOne = new Assessment(1, "Course 1 Assessment", "20190831", 1, 1);
+        Assessment assessmentOne = new Assessment(1, "Course 1 Assessment", "20190831", TermDbHandler.assessTypePerformance, 1);
         QM.insertAssessment(assessmentOne);
-        Assessment assessmentTwo = new Assessment(2, "Course 2 Assessment", "20191031", 1, 2);
+        Assessment assessmentTwo = new Assessment(2, "Course 2 Assessment", "20191031", TermDbHandler.assessTypePerformance, 2);
         QM.insertAssessment(assessmentTwo);
-        Assessment assessmentThree = new Assessment(3, "Course 3 Assessment", "20191231", 2, 3);
+        Assessment assessmentThree = new Assessment(3, "Course 3 Assessment", "20191231", TermDbHandler.assessTypeObjective, 3);
         QM.insertAssessment(assessmentThree);
-        Assessment assessmentFour = new Assessment(4, "Course 4 Assessment", "20200229", 1, 4);
+        Assessment assessmentFour = new Assessment(4, "Course 4 Assessment", "20200229", TermDbHandler.assessTypePerformance, 4);
         QM.insertAssessment(assessmentFour);
-        Assessment assessmentFive = new Assessment(5, "Course 5 Assessment", "20200430", 2, 5);
+        Assessment assessmentFive = new Assessment(5, "Course 5 Assessment", "20200430", TermDbHandler.assessTypeObjective, 5);
         QM.insertAssessment(assessmentFive);
-        Assessment assessmentSix = new Assessment(6, "Course 6 Assessment", "20200630", 2, 6);
+        Assessment assessmentSix = new Assessment(6, "Course 6 Assessment", "20200630", TermDbHandler.assessTypeObjective, 6);
         QM.insertAssessment(assessmentSix);
-        Assessment assessmentSeven = new Assessment(7, "Course 7 Assessment", "20200831", 1, 7);
+        Assessment assessmentSeven = new Assessment(7, "Course 7 Assessment", "20200831", TermDbHandler.assessTypePerformance, 7);
         QM.insertAssessment(assessmentSeven);
-        Assessment assessmentEight = new Assessment(8, "Course 8 Assessment", "20201031", 2, 8);
+        Assessment assessmentEight = new Assessment(8, "Course 8 Assessment", "20201031", TermDbHandler.assessTypeObjective, 8);
         QM.insertAssessment(assessmentEight);
-        Assessment assessmentNine = new Assessment(9, "Course 9 Assessment", "20201231", 1, 9);
+        Assessment assessmentNine = new Assessment(9, "Course 9 Assessment", "20201231", TermDbHandler.assessTypePerformance, 9);
         QM.insertAssessment(assessmentNine);
 
         QM.insertNote("Lorem ipsum dolor sit amet, consectetur adipiscing elit, " +

@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import com.example.kylerdavisc196project.model.AssessmentType;
 import com.example.kylerdavisc196project.model.Course;
 import com.example.kylerdavisc196project.model.Status;
 import com.example.kylerdavisc196project.model.Term;
@@ -20,10 +21,12 @@ public class TermDbHandler extends SQLiteOpenHelper {
     private static final int DB_VERSION = 1;
     private static final String DB_NAME = "termTrackerDb";
 
-    public static final Status statusPlanToTake = new Status(0, "Plan To Take");
-    public static final Status statusInProgres = new Status(1, "In Progress");
-    public static final Status statusCompleted = new Status(2, "Completed");
-    public static final Status statusDropped = new Status(3, "Dropped");
+    public static final Status statusPlanToTake = new Status(1, "Plan To Take");
+    public static final Status statusInProgress = new Status(2, "In Progress");
+    public static final Status statusCompleted = new Status(3, "Completed");
+    public static final Status statusDropped = new Status(4, "Dropped");
+    public static final AssessmentType assessTypePerformance = new AssessmentType(1, "Performance");
+    public static final AssessmentType assessTypeObjective = new AssessmentType(2, "Objective");
 
 
     //Term Table
@@ -158,14 +161,20 @@ public class TermDbHandler extends SQLiteOpenHelper {
         planToTake.put(STATUS_ID, statusPlanToTake.getId());
         planToTake.put(STATUS_NAME, statusPlanToTake.getName());
         ContentValues inProgress = new ContentValues();
-        inProgress.put(STATUS_ID, statusInProgres.getId());
-        inProgress.put(STATUS_NAME, statusInProgres.getName());
+        inProgress.put(STATUS_ID, statusInProgress.getId());
+        inProgress.put(STATUS_NAME, statusInProgress.getName());
         ContentValues completed = new ContentValues();
         completed.put(STATUS_ID, statusCompleted.getId());
         completed.put(STATUS_NAME, statusCompleted.getName());
         ContentValues dropped = new ContentValues();
         dropped.put(STATUS_ID, statusDropped.getId());
         dropped.put(STATUS_NAME, statusDropped.getName());
+        ContentValues performance = new ContentValues();
+        performance.put(ASSESSMENT_TYPE_ID, assessTypePerformance.getId());
+        performance.put(ASSESSMENT_TYPE_NAME, assessTypePerformance.getName());
+        ContentValues objective = new ContentValues();
+        objective.put(ASSESSMENT_TYPE_ID, assessTypeObjective.getId());
+        objective.put(ASSESSMENT_TYPE_NAME, assessTypeObjective.getName());
 
 
         try {
@@ -179,7 +188,9 @@ public class TermDbHandler extends SQLiteOpenHelper {
             db.insert(TABLE_STATUS, null, dropped);
             //db.execSQL(INSERT_STATUS);
             db.execSQL(CREATE_ASSESSMENT_TYPE_TABLE);
-            db.execSQL(INSERT_ASSESSMENT_TYPE);
+            db.insert(TABLE_ASSESSMENT_TYPE, null, performance);
+            db.insert(TABLE_ASSESSMENT_TYPE,null, objective);
+            //db.execSQL(INSERT_ASSESSMENT_TYPE);
             db.execSQL(CREATE_ASSESSMENT_TABLE);
             db.execSQL(CREATE_NOTE_TABLE);
             db.execSQL(CREATE_ALERT_TABLE);
@@ -212,6 +223,6 @@ public class TermDbHandler extends SQLiteOpenHelper {
     //Assessment Type Table Setup
     private static final String INSERT_ASSESSMENT_TYPE =
             "INSERT INTO " + TABLE_ASSESSMENT_TYPE + " (" + ASSESSMENT_TYPE_ID + ", " + ASSESSMENT_TYPE_NAME + ")" +
-                    "VALUES (0, 'Performance')," +
-                    "(1, 'Objective')";
+                    "VALUES (1, 'Performance')," +
+                    "(2, 'Objective')";
 }
