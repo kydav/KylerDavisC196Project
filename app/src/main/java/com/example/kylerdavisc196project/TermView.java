@@ -91,6 +91,11 @@ public class TermView extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+    public void onResume() {
+        super.onResume();
+        setUpTitleAndDates();
+        setUpListView();
+    }
     private void setUpTitleAndDates() {
         if(termId > 0) {
             termToView = QM.selectTerm((int) (long) termId);

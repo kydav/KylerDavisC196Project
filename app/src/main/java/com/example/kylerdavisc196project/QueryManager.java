@@ -228,19 +228,6 @@ public class QueryManager {
                 " INNER JOIN " + TermDbHandler.TABLE_MENTOR + " m ON c." + TermDbHandler.COURSE_MENTOR_ID + " = m." + TermDbHandler.MENTOR_ID +
                 " WHERE c." + TermDbHandler.COURSE_ID + " = " + id;
         Cursor cursor = database.rawQuery(rawQuery, null);
-        //Cursor cursor = database.query(TermDbHandler.TABLE_COURSE,allTermColumns, TermDbHandler.COURSE_ID + "=?",new String[]{String.valueOf(id)},null,null, null, null);
-//
-//        if (cursor != null)
-//            cursor.moveToFirst();
-//        Course c = new Course(
-//                Integer.parseInt(cursor.getString(0)),
-//                cursor.getString(1),
-//                cursor.getString(2),
-//                cursor.getString(3),
-//                cursor.getString(4),
-//                cursor.getInt(5),
-//                cursor.getInt(6),
-//                cursor.getInt(7));
         Course c = new Course();
         Status s = new Status();
         Term t = new Term();
@@ -249,15 +236,15 @@ public class QueryManager {
             cursor.moveToFirst();
             c.setName(cursor.getString(cursor.getColumnIndex(TermDbHandler.COURSE_NAME)));
             c.setDescription(cursor.getString(cursor.getColumnIndex(TermDbHandler.COURSE_DESCRIPTION)));
-            c.setStartDate(cursor.getString(cursor.getColumnIndex(TermDbHandler.COURSE_START_DATE)));
-            c.setEndDate(cursor.getString(cursor.getColumnIndex(TermDbHandler.COURSE_END_DATE)));
+            c.setStartDate(transformedDate(cursor.getString(cursor.getColumnIndex(TermDbHandler.COURSE_START_DATE))));
+            c.setEndDate(transformedDate(cursor.getString(cursor.getColumnIndex(TermDbHandler.COURSE_END_DATE))));
             s.setId(cursor.getInt(cursor.getColumnIndex(TermDbHandler.COURSE_STATUS_ID)));
             s.setName(cursor.getString(cursor.getColumnIndex(TermDbHandler.STATUS_NAME)));
             c.setStatus(s);
             t.setId(cursor.getInt(cursor.getColumnIndex(TermDbHandler.COURSE_TERM_ID)));
             t.setName(cursor.getString(cursor.getColumnIndex(TermDbHandler.TERM_NAME)));
-            t.setStartDate(cursor.getString(cursor.getColumnIndex(TermDbHandler.TERM_START_DATE)));
-            t.setEndDate(cursor.getString(cursor.getColumnIndex(TermDbHandler.TERM_END_DATE)));
+            t.setStartDate(transformedDate(cursor.getString(cursor.getColumnIndex(TermDbHandler.TERM_START_DATE))));
+            t.setEndDate(transformedDate(cursor.getString(cursor.getColumnIndex(TermDbHandler.TERM_END_DATE))));
             c.setTerm(t);
             m.setId(cursor.getInt(cursor.getColumnIndex(TermDbHandler.COURSE_MENTOR_ID)));
             m.setName(cursor.getString(cursor.getColumnIndex(TermDbHandler.MENTOR_NAME)));
@@ -530,5 +517,17 @@ public class QueryManager {
     public String transformedDate(String dateIn) {
         //Date in will be formatted as YYYYMMDD
         return dateIn.substring(4,6) + "/" + dateIn.substring(6,8) + "/" + dateIn.substring(0,4);
+    }
+    public String dateToDB(String dateIn) {
+        String[] stringArray = dateIn.split("/");
+        String month = stringArray[0];
+        String day = stringArray[1];
+        if(month.length() == 1) {
+            month = "0" + month;
+        }
+        if(day.length() == 1) {
+            day = "0" + day;
+        }
+        return stringArray[2] + month + day;
     }
  }

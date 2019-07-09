@@ -1,6 +1,7 @@
 package com.example.kylerdavisc196project;
 
 import android.app.DownloadManager;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -26,24 +27,27 @@ public class TermList extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         QM = new QueryManager(TermList.this);
-        QM.open();
         setUpListView();
-
-//        FloatingActionButton fab = findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
+        FloatingActionButton fab = findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(TermList.this, TermEdit.class);
+                startActivity(intent);
+            }
+        });
+    }
+    public void onResume() {
+        super.onResume();
+        setUpListView();
     }
     private void setUpListView() {
+        QM.open();
         List<Term> termsToView = QM.selectAllTerms();
-
         termListView = findViewById(R.id.termListView);
         termAdapter = new TermAdapter(this, termsToView);
         termListView.setAdapter(termAdapter);
+        QM.close();
     }
 
 }

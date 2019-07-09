@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
         createNewTermButton = findViewById(R.id.createTermButton);
         createNewTermButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), TermCreate.class);
+                Intent intent = new Intent(getApplicationContext(), TermEdit.class);
                 startActivity(intent);
             }
         });

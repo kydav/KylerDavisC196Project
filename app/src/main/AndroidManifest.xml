@@ -10,11 +10,18 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".EditCourse"
+            android:label="@string/title_activity_edit_course"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".TermEdit"
+            android:label="@string/title_activity_the_term_edit"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
             android:name=".CourseView"
             android:label="@string/title_activity_the_course_view"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".AssessmentView" />
-        <activity android:name=".TermEdit" />
         <activity android:name=".TermCreate" />
         <activity
             android:name=".TermView"

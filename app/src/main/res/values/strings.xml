@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">KylerDavisC196Project</string>
     <string name="action_generate_test_data">Generate Test Data</string>
-    <string name="title_activity_term_list">TermList</string>
-    <string name="title_activity_term_view">TermView</string>
+    <string name="title_activity_term_list">Term List</string>
+    <string name="title_activity_term_view">View Term</string>
     <string name="term_start_date">Term Start Date:</string>
     <string name="term_end_date">Term End Date:</string>
     <string name="action_delete_all_data">Delete All Data</string>
@@ -12,7 +12,7 @@
     <string name="edit_term">Edit Term</string>
     <string name="delete_term">Delete Term</string>
     <string name="cancel">Cancel</string>
-    <string name="title_activity_the_course_view">TheCourseView</string>
+    <string name="title_activity_the_course_view">View Course</string>
     <string name="course_description">Course Description</string>
     <string name="course_start_date">Course Start Date:</string>
     <string name="course_end_date">Course End Date:</string>
@@ -20,4 +20,12 @@
     <string name="mentor_info">Mentor Info.</string>
     <string name="assessments">Assessments</string>
     <string name="notes">Notes</string>
+    <string name="title_activity_the_term_edit">Create Term</string>
+    <string name="term_title">Term Title</string>
+    <string name="start_date">Start Date (MM/DD/YYYY)</string>
+    <string name="end_date">End Date (MM/DD/YYYY)</string>
+    <string name="button">Button</string>
+    <string name="save">Save</string>
+    <string name="add_course">Add Course</string>
+    <string name="title_activity_edit_course">EditCourse</string>
 </resources>
