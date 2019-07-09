@@ -58,9 +58,10 @@ public class TermView extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
+        termId = termToView.getId();
         if(id == R.id.action_edit_term) {
             Intent intent = new Intent(getApplicationContext(),TermEdit.class);
-            termId = termToView.getId();
+
             intent.putExtra(TermDbHandler.TERM_ID, termId);
             startActivity(intent);
         }else if(id == R.id.action_delete_term) {
@@ -88,6 +89,10 @@ public class TermView extends AppCompatActivity {
 
             AlertDialog alert11 = builder1.create();
             alert11.show();
+        }else if(id == R.id.action_add_course) {
+            Intent intent = new Intent(TermView.this, EditCourse.class);
+            intent.putExtra(TermDbHandler.TERM_ID, termId);
+            startActivity(intent);
         }
         return super.onOptionsItemSelected(item);
     }
