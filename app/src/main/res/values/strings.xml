@@ -28,4 +28,13 @@
     <string name="save">Save</string>
     <string name="add_course">Add Course</string>
     <string name="title_activity_edit_course">EditCourse</string>
+    <string name="edit_course">Edit Course</string>
+    <string name="delete_course">Delete Course</string>
+    <string name="add_alert">Add Alert</string>
+    <string name="title_activity_alert">Alert</string>
+    <string name="title_activity_mentor_view">MentorView</string>
+    <string name="title_activity_note_view">NoteView</string>
+    <string name="title_activity_note_edit">NoteEdit</string>
+    <string name="edit_note">Edit Note</string>
+    <string name="delete_note">Delete Note</string>
 </resources>

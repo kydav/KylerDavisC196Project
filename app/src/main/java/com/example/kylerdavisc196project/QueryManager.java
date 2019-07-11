@@ -14,7 +14,9 @@ import com.example.kylerdavisc196project.model.Course;
 import com.example.kylerdavisc196project.model.Mentor;
 import com.example.kylerdavisc196project.model.Status;
 import com.example.kylerdavisc196project.model.Term;
+import com.example.kylerdavisc196project.model.Note;
 
+import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -166,6 +168,7 @@ public class QueryManager {
             return false;
         }
     }
+
     public Term currentTerm() {
         Term term = new Term();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
@@ -365,6 +368,16 @@ public class QueryManager {
         Status s = new Status(Integer.parseInt(cursor.getString(0)),cursor.getString(1));
         return s;
     }
+    public Note selectNote(long courseId) {
+        Cursor cursor = database.query(TermDbHandler.TABLE_NOTE, new String[]{TermDbHandler.NOTE_ID, TermDbHandler.NOTE_CONTENTS}, TermDbHandler.NOTE_COURSE_ID + "=?", new String[]{String.valueOf(courseId)},null,null,null,null);
+        if (cursor != null)
+            cursor.moveToFirst();
+        Note n = new Note();
+        n.setId(cursor.getInt(cursor.getColumnIndex(TermDbHandler.NOTE_ID)));
+        n.setNoteContents(cursor.getString(cursor.getColumnIndex(TermDbHandler.NOTE_CONTENTS)));
+        n.setNoteCourseId((int)(long)courseId);
+        return n;
+    }
     //Select Assessment
     public Assessment selectAssessment(int id) {
         //Cursor cursor = database.query(TermDbHandler.TABLE_ASSESSMENT,allAssessmentColumns, TermDbHandler.ASSESSMENT_ID + "=?",new String[]{String.valueOf(id)},null,null,null);
@@ -475,8 +488,8 @@ public class QueryManager {
         return id;
     }
     //Delete Course
-    public long deleteCourse(Course course) {
-        long id = database.delete(TermDbHandler.TABLE_TERM, TermDbHandler.COURSE_ID + " = " + course.getId(), null);
+    public long deleteCourse(int courseId) {
+        long id = database.delete(TermDbHandler.TABLE_TERM, TermDbHandler.COURSE_ID + " = " + courseId, null);
         return id;
     }
     //Delete Mentor

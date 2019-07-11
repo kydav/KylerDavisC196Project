@@ -10,9 +10,25 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".EditCourse"
-            android:label="@string/title_activity_edit_course"
+            android:name=".NoteEdit"
+            android:label="@string/title_activity_note_edit"
             android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".NoteView"
+            android:label="@string/title_activity_note_view"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".MentorView"
+            android:label="@string/title_activity_mentor_view"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Alert"
+            android:label="@string/title_activity_alert"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".CourseEdit"
+            android:label="@string/title_activity_edit_course"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".TermEdit"
             android:label="@string/title_activity_the_term_edit"
