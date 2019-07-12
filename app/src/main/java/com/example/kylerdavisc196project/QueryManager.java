@@ -131,7 +131,7 @@ public class QueryManager {
         return id;
     }
     //Create Note
-    public long insertNote(String noteContents, int noteCourseId) {
+    public long insertNote(String noteContents, long noteCourseId) {
         ContentValues val = new ContentValues();
         val.put(TermDbHandler.NOTE_CONTENTS, noteContents);
         val.put(TermDbHandler.NOTE_COURSE_ID, noteCourseId);
@@ -370,13 +370,15 @@ public class QueryManager {
     }
     public Note selectNote(long courseId) {
         Cursor cursor = database.query(TermDbHandler.TABLE_NOTE, new String[]{TermDbHandler.NOTE_ID, TermDbHandler.NOTE_CONTENTS}, TermDbHandler.NOTE_COURSE_ID + "=?", new String[]{String.valueOf(courseId)},null,null,null,null);
-        if (cursor != null)
-            cursor.moveToFirst();
         Note n = new Note();
-        n.setId(cursor.getInt(cursor.getColumnIndex(TermDbHandler.NOTE_ID)));
-        n.setNoteContents(cursor.getString(cursor.getColumnIndex(TermDbHandler.NOTE_CONTENTS)));
-        n.setNoteCourseId((int)(long)courseId);
-        return n;
+        if (cursor.getCount() != 0) {
+            cursor.moveToFirst();
+
+            n.setId(cursor.getInt(cursor.getColumnIndex(TermDbHandler.NOTE_ID)));
+            n.setNoteContents(cursor.getString(cursor.getColumnIndex(TermDbHandler.NOTE_CONTENTS)));
+            n.setNoteCourseId((int) (long) courseId);
+        }
+            return n;
     }
     //Select Assessment
     public Assessment selectAssessment(int id) {
@@ -472,7 +474,7 @@ public class QueryManager {
         return id;
     }
     //Update Note
-    public long updateNote(String noteContents, int noteID) {
+    public long updateNote(String noteContents, long noteID) {
         ContentValues val = new ContentValues();
         val.put(TermDbHandler.NOTE_CONTENTS, noteContents);
         long id = database.update(TermDbHandler.TABLE_NOTE, val, TermDbHandler.NOTE_ID + "=" + noteID, null);
@@ -498,7 +500,7 @@ public class QueryManager {
         return id;
     }
     //Delete Note
-    public long deleteNote(int noteId) {
+    public long deleteNote(long noteId) {
         long id = database.delete(TermDbHandler.TABLE_NOTE, TermDbHandler.NOTE_ID + "=" + noteId, null);
         return id;
     }

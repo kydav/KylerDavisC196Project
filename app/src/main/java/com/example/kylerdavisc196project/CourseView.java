@@ -130,11 +130,10 @@ public class CourseView extends AppCompatActivity {
         startActivity(intent);
     }
     private void noteButtonClick() {
-        //TODO START HERE TOMORROW, TIS BROKEN!!!
-        courseId = courseToView.getId();
+
         QM.open();
         Note note = QM.selectNote(courseId);
-        if(note == null) {
+        if(note.getNoteContents() == null) {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setMessage("Would you like to create a note for this course?");
             builder.setCancelable(true);

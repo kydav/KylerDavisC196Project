@@ -4,23 +4,19 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.TextView;
 
 import com.example.kylerdavisc196project.model.Note;
-
-import org.w3c.dom.Text;
 
 public class NoteView extends AppCompatActivity {
     private QueryManager QM;
     private long courseId;
     Note note;
+    private long noteId;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,6 +31,7 @@ public class NoteView extends AppCompatActivity {
         QM = new QueryManager(NoteView.this);
         QM.open();
         note = QM.selectNote(courseId);
+        noteId = note.getId();
         String courseName = QM.selectCourse((int)(long)courseId).getName() + " Note";
         TextView noteViewTitle = findViewById(R.id.noteViewCourseName);
         noteViewTitle.setText(courseName);
@@ -51,8 +48,8 @@ public class NoteView extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if(id == R.id.action_edit_note) {
-            Intent intent = new Intent(getApplicationContext(), CourseEdit.class);
-            intent.putExtra(TermDbHandler.NOTE_ID, note.getId());
+            Intent intent = new Intent(getApplicationContext(), NoteEdit.class);
+            intent.putExtra(TermDbHandler.COURSE_ID, courseId);
             startActivity(intent);
         } else if (id == R.id.action_delete_note) {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -62,7 +59,9 @@ public class NoteView extends AppCompatActivity {
                     "Yes",
                     new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
-                            QM.deleteNote((int) (long)note.getId());
+                            QM.open();
+                            QM.deleteNote(note.getId());
+                            QM.close();
                             dialog.cancel();
                             finish();
                         }
