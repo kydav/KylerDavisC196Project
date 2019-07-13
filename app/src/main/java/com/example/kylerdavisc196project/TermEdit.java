@@ -54,9 +54,6 @@ public class TermEdit extends AppCompatActivity {
         int id = item.getItemId();
         if(id == R.id.action_cancel_edit) {
             finish();
-            // Intent intent = new Intent(getApplicationContext(),TermView.class);
-            // intent.putExtra(TermDbHandler.TERM_ID, termId);
-            // startActivity(intent);
         }
         return super.onOptionsItemSelected(item);
     }
@@ -78,6 +75,7 @@ public class TermEdit extends AppCompatActivity {
         } else if(endDateString.isEmpty()) {
             Toast.makeText(this, "Please enter an End Date", Toast.LENGTH_SHORT).show();
         } else {
+            termToSave = new Term();
             termToSave.setName(titleString);
             startDateString = QM.dateToDB(startDateString);
             termToSave.setStartDate(startDateString);

@@ -17,6 +17,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TermDbHandler extends SQLiteOpenHelper {
+    //TODO REFACTOR DATABASE, NEED TO REMOVE AND CHANGE SOME FKs FK IS A REFERENCE FROM THE CHILD TABLE TO PARENT TABLE ID
+    //TODO THE WAY I DID THINGS I'M CAUSING REFERENTIAL ISSUES WHEN A MENTOR IS DELETED.
     private static final String LOG = "DatabaseHelper";
     private static final int DB_VERSION = 1;
     private static final String DB_NAME = "termTrackerDb";

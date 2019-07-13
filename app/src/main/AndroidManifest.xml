@@ -10,9 +10,17 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".MentorSelect"
+            android:label="@string/title_activity_mentor_select"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".MentorEdit"
+            android:label="@string/title_activity_mentor_edit"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
             android:name=".NoteEdit"
             android:label="@string/title_activity_note_edit"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".NoteView"
             android:label="@string/title_activity_note_view"

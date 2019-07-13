@@ -44,7 +44,6 @@ public class CourseView extends AppCompatActivity {
             courseId = incomingIntent.getLongExtra(TermDbHandler.COURSE_ID, 0);
         }
         QM = new QueryManager(CourseView.this);
-        QM.open();
         setUpTitleAndDates();
         mentorButton = findViewById(R.id.courseViewMentorButton);
         mentorButton.setOnClickListener(new View.OnClickListener() {
@@ -70,6 +69,10 @@ public class CourseView extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu_course_view, menu);
         return true;
     }
+    public void onResume() {
+        super.onResume();
+        setUpTitleAndDates();
+    }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
@@ -86,7 +89,9 @@ public class CourseView extends AppCompatActivity {
                 "Yes",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
+                        QM.open();
                         QM.deleteCourse((int) (long)courseId);
+                        QM.close();
                         dialog.cancel();
                         finish();
                     }
@@ -110,8 +115,9 @@ public class CourseView extends AppCompatActivity {
     }
     private void setUpTitleAndDates() {
         if(courseId > 0) {
+            QM.open();
             courseToView = QM.selectCourse((int) (long) courseId);
-
+            QM.close();
             TextView courseTitle = findViewById(R.id.courseViewTitle);
             courseTitle.setText(courseToView.getName());
             TextView courseStartDateText = findViewById(R.id.courseViewStartDateText);
@@ -125,14 +131,54 @@ public class CourseView extends AppCompatActivity {
         }
     }
     private void mentorButtonClick() {
+        final long mentorId = courseToView.getMentor().getId();
+        QM.open();
+        Mentor mentor = QM.selectMentor(mentorId);
+        QM.close();
+        if(mentor.getName() == null) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setMessage("Would you like to create or select a new mentor for this course?");
+            builder.setCancelable(true);
+            builder.setPositiveButton(
+                    "Create",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            Intent intent = new Intent(CourseView.this, MentorEdit.class);
+                            intent.putExtra(TermDbHandler.MENTOR_ID, mentorId);
+                            startActivity(intent);
+                        }
+                    });
+            builder.setNeutralButton(
+                    "Select",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            Intent intent = new Intent(CourseView.this, MentorSelect.class);
+                            startActivity(intent);
+                        }
+                    });
+            builder.setNegativeButton(
+                    "Cancel",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                        }
+                    });
+
+            AlertDialog alert11 = builder.create();
+            alert11.show();
+        }else {
+            Intent intent = new Intent(CourseView.this, NoteView.class);
+            intent.putExtra(TermDbHandler.COURSE_ID, courseId);
+            startActivity(intent);
+        }
         Intent intent = new Intent(CourseView.this, MentorView.class);
         intent.putExtra(TermDbHandler.MENTOR_ID, courseToView.getMentor().getId());
         startActivity(intent);
     }
     private void noteButtonClick() {
-
         QM.open();
         Note note = QM.selectNote(courseId);
+        QM.close();
         if(note.getNoteContents() == null) {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setMessage("Would you like to create a note for this course?");
@@ -163,6 +209,6 @@ public class CourseView extends AppCompatActivity {
         }
     }
     private void assessmentButtonClick() {
-        courseId = courseToView.getId();
+
     }
 }

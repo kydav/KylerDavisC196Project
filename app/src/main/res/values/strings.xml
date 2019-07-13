@@ -37,4 +37,11 @@
     <string name="title_activity_note_edit">NoteEdit</string>
     <string name="edit_note">Edit Note</string>
     <string name="delete_note">Delete Note</string>
+    <string name="phone_number">Phone Number:</string>
+    <string name="email_address">Email Address:</string>
+    <string name="edit_mentor">Edit Mentor</string>
+    <string name="delete_mentor">Delete Mentor</string>
+    <string name="title_activity_mentor_edit">MentorEdit</string>
+    <string name="mentor_name">Mentor Name:</string>
+    <string name="title_activity_mentor_select">MentorSelect</string>
 </resources>

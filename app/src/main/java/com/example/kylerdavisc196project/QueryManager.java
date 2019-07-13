@@ -44,7 +44,7 @@ public class QueryManager {
     public static final String[] allMentorColumns = {
             TermDbHandler.MENTOR_ID,
             TermDbHandler.MENTOR_NAME,
-            TermDbHandler.MENTOR_EMAIL,
+            TermDbHandler.MENTOR_PHONE,
             TermDbHandler.MENTOR_EMAIL
     };
     public static final String[] allStatusColumns = {
@@ -351,13 +351,18 @@ public class QueryManager {
         return courses;
     }
     //Select Mentor
-    public Term selectMentor(int id) {
-        Cursor cursor = database.query(TermDbHandler.TABLE_MENTOR,allTermColumns, TermDbHandler.TERM_ID + "=?",new String[]{String.valueOf(id)},null,null, null, null);
+    public Mentor selectMentor(long id) {
+        Cursor cursor = database.query(TermDbHandler.TABLE_MENTOR,allMentorColumns, TermDbHandler.MENTOR_ID + "=?",new String[]{String.valueOf(id)},null,null, null, null);
+        Mentor m = new Mentor();
         if (cursor != null)
             cursor.moveToFirst();
 
-        Term t = new Term(Integer.parseInt(cursor.getString(0)),cursor.getString(1),cursor.getString(2),cursor.getString(3));
-        return t;
+            m.setId(cursor.getInt(cursor.getColumnIndex(TermDbHandler.MENTOR_ID)));
+            m.setName(cursor.getString(cursor.getColumnIndex(TermDbHandler.MENTOR_NAME)));
+            m.setPhone(cursor.getString(cursor.getColumnIndex(TermDbHandler.MENTOR_PHONE)));
+            m.setEmail(cursor.getString(cursor.getColumnIndex(TermDbHandler.MENTOR_EMAIL)));
+
+        return m;
     }
     //Select Status
     public Status selectStatus(int id) {
@@ -481,9 +486,6 @@ public class QueryManager {
         return id;
     }
 
-
-
-
     //Delete Term
     public long deleteTerm(int termId) {
         long id = database.delete(TermDbHandler.TABLE_TERM, TermDbHandler.TERM_ID + " = " + termId, null);
@@ -491,12 +493,12 @@ public class QueryManager {
     }
     //Delete Course
     public long deleteCourse(int courseId) {
-        long id = database.delete(TermDbHandler.TABLE_TERM, TermDbHandler.COURSE_ID + " = " + courseId, null);
+        long id = database.delete(TermDbHandler.TABLE_COURSE, TermDbHandler.COURSE_ID + " = " + courseId, null);
         return id;
     }
     //Delete Mentor
-    public long deleteMentor(Mentor mentor) {
-        long id = database.delete(TermDbHandler.TABLE_MENTOR, TermDbHandler.MENTOR_ID + " = " + mentor.getId(), null);
+    public long deleteMentor(long mentorId) {
+        long id = database.delete(TermDbHandler.TABLE_MENTOR, TermDbHandler.MENTOR_ID + " = " + mentorId, null);
         return id;
     }
     //Delete Note
