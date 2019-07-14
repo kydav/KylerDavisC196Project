@@ -39,106 +39,160 @@
 
     <TextView
         android:id="@+id/courseViewStartDate"
-        android:layout_width="175dp"
+        android:layout_width="100dp"
         android:layout_height="30dp"
         android:layout_marginStart="28dp"
         android:layout_marginLeft="28dp"
         android:layout_marginTop="12dp"
         android:text="@string/course_start_date"
-        android:textSize="20sp"
+        android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/courseViewDescription" />
 
     <TextView
         android:id="@+id/courseViewStartDateText"
-        android:layout_width="155sp"
-        android:layout_height="30sp"
+        android:layout_width="230dp"
+        android:layout_height="30dp"
         android:layout_marginStart="20dp"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="12dp"
-        android:textSize="20sp"
+        android:textSize="14sp"
         app:layout_constraintStart_toEndOf="@+id/courseViewStartDate"
         app:layout_constraintTop_toBottomOf="@+id/courseViewDescription" />
 
     <TextView
         android:id="@+id/courseViewEndDate"
-        android:layout_width="175dp"
+        android:layout_width="100dp"
         android:layout_height="30dp"
         android:layout_marginStart="28dp"
         android:layout_marginLeft="28dp"
         android:layout_marginTop="12dp"
         android:text="@string/course_end_date"
-        android:textSize="20sp"
+        android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/courseViewStartDate" />
 
     <TextView
         android:id="@+id/courseViewEndDateText"
-        android:layout_width="155dp"
+        android:layout_width="230dp"
         android:layout_height="30dp"
         android:layout_marginStart="20dp"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="12dp"
-        android:textSize="20sp"
+        android:textSize="14sp"
         app:layout_constraintStart_toEndOf="@+id/courseViewEndDate"
         app:layout_constraintTop_toBottomOf="@+id/courseViewStartDateText" />
 
     <TextView
         android:id="@+id/courseViewStatus"
-        android:layout_width="175dp"
+        android:layout_width="100dp"
         android:layout_height="30dp"
         android:layout_marginStart="28dp"
         android:layout_marginLeft="28dp"
         android:layout_marginTop="12dp"
         android:text="@string/course_status"
-        android:textSize="20sp"
+        android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/courseViewEndDate" />
 
     <TextView
         android:id="@+id/courseViewStatusText"
-        android:layout_width="155dp"
+        android:layout_width="230dp"
         android:layout_height="30dp"
         android:layout_marginStart="20dp"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="12dp"
-        android:textSize="20sp"
+        android:textSize="14sp"
         app:layout_constraintStart_toEndOf="@+id/courseViewStatus"
         app:layout_constraintTop_toBottomOf="@+id/courseViewEndDateText" />
-
-    <Button
-        android:id="@+id/courseViewMentorButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="25dp"
-        android:layout_marginLeft="25dp"
-        android:layout_marginTop="20dp"
-        android:text="@string/mentor_info"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/courseViewStatus" />
 
     <Button
         android:id="@+id/courseViewAssessmentButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginLeft="25dp"
         android:layout_marginTop="20dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
+        android:layout_marginEnd="72dp"
+        android:layout_marginRight="72dp"
         android:text="@string/assessments"
         app:layout_constraintEnd_toStartOf="@+id/courseViewNoteButton"
-        app:layout_constraintStart_toEndOf="@+id/courseViewMentorButton"
-        app:layout_constraintTop_toBottomOf="@+id/courseViewStatus" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/courseViewMentorEmail" />
 
     <Button
         android:id="@+id/courseViewNoteButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:layout_marginEnd="25dp"
-        android:layout_marginRight="25dp"
+        android:layout_marginEnd="75dp"
+        android:layout_marginRight="75dp"
         android:text="@string/notes"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/courseViewMentorEmailField" />
+
+    <TextView
+        android:id="@+id/courseViewMentorName"
+        android:layout_width="100dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginLeft="28dp"
+        android:layout_marginTop="12dp"
+        android:text="@string/mentor_name"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/courseViewStatus" />
+
+    <TextView
+        android:id="@+id/courseViewMentorPhone"
+        android:layout_width="100dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginLeft="28dp"
+        android:layout_marginTop="12dp"
+        android:text="@string/mentor_phone"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/courseViewMentorName" />
+
+    <TextView
+        android:id="@+id/courseViewMentorEmail"
+        android:layout_width="100dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginLeft="28dp"
+        android:layout_marginTop="12dp"
+        android:text="@string/mentor_email"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/courseViewMentorPhone" />
+
+    <TextView
+        android:id="@+id/courseViewMentorNameField"
+        android:layout_width="230dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="12dp"
+        app:layout_constraintStart_toEndOf="@+id/courseViewMentorName"
         app:layout_constraintTop_toBottomOf="@+id/courseViewStatusText" />
+
+    <TextView
+        android:id="@+id/courseViewMentorPhoneField"
+        android:layout_width="230dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="12dp"
+        app:layout_constraintStart_toEndOf="@+id/courseViewMentorPhone"
+        app:layout_constraintTop_toBottomOf="@+id/courseViewMentorNameField" />
+
+    <TextView
+        android:id="@+id/courseViewMentorEmailField"
+        android:layout_width="230dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="12dp"
+        app:layout_constraintStart_toEndOf="@+id/courseViewMentorEmail"
+        app:layout_constraintTop_toBottomOf="@+id/courseViewMentorPhoneField" />
 </android.support.constraint.ConstraintLayout>

@@ -8,33 +8,39 @@ public class Course {
     String description;
     String startDate;
     String endDate;
-    Status status;
+    String mentorName;
+    String mentorPhone;
+    String mentorEmail;
+    String status;
     Term term;
-    Mentor mentor;
 
     public Course() {
 
     }
 
-    public Course(String name, String description, String startDate, String endDate, Status status, Term term, Mentor mentor) {
+    public Course(String name, String description, String startDate, String endDate, String mentorName, String mentorPhone, String mentorEmail, String status, Term term) {
         this.name = name;
         this.description = description;
         this.startDate = startDate;
         this.endDate = endDate;
+        this.mentorName = mentorName;
+        this.mentorPhone = mentorPhone;
+        this.mentorEmail = mentorEmail;
         this.status = status;
         this.term = term;
-        this.mentor = mentor;
     }
 
-    public Course(int id, String name, String description, String startDate, String endDate, Status status, Term term, Mentor mentor) {
+    public Course(int id, String name, String description, String startDate, String endDate, String mentorName, String mentorPhone, String mentorEmail,  String status, Term term) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.startDate = startDate;
         this.endDate = endDate;
+        this.mentorName = mentorName;
+        this.mentorPhone = mentorPhone;
+        this.mentorEmail = mentorEmail;
         this.status = status;
         this.term = term;
-        this.mentor = mentor;
     }
 
     //setters
@@ -58,16 +64,18 @@ public class Course {
         this.endDate = endDate;
     }
 
-    public void setStatus(Status status) {
+    public void setMentorName(String mentorName) { this.mentorName = mentorName; }
+
+    public void setMentorPhone(String mentorPhone) { this.mentorPhone = mentorPhone; }
+
+    public void setMentorEmail(String mentorEmail) { this.mentorEmail = mentorEmail; }
+
+    public void setStatus(String status) {
         this.status = status;
     }
 
     public void setTerm(Term term) {
         this.term = term;
-    }
-
-    public void setMentor(Mentor mentor) {
-        this.mentor = mentor;
     }
 
     //getters
@@ -91,13 +99,17 @@ public class Course {
         return this.endDate;
     }
 
-    public Status getStatus () {
+    public String getMentorName () { return this.mentorName; }
+
+    public String getMentorPhone () { return this.mentorPhone; }
+
+    public String getMentorEmail () { return this.mentorEmail; }
+
+    public String getStatus () {
         return this.status;
     }
 
     public Term getTerm () {
         return this.term;
     }
-
-    public Mentor getMentor () { return this.mentor; }
 }

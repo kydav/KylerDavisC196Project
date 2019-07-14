@@ -45,12 +45,7 @@ public class CourseView extends AppCompatActivity {
         }
         QM = new QueryManager(CourseView.this);
         setUpTitleAndDates();
-        mentorButton = findViewById(R.id.courseViewMentorButton);
-        mentorButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-                mentorButtonClick();
-            }
-        });
+
         noteButton = findViewById(R.id.courseViewNoteButton);
         noteButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
@@ -76,7 +71,6 @@ public class CourseView extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        courseId = courseToView.getId();
         if(id == R.id.action_edit_course) {
             Intent intent = new Intent(getApplicationContext(), CourseEdit.class);
             intent.putExtra(TermDbHandler.COURSE_ID, courseId);
@@ -127,54 +121,16 @@ public class CourseView extends AppCompatActivity {
             TextView courseDescription = findViewById(R.id.courseViewDescription);
             courseDescription.setText(courseToView.getDescription());
             TextView courseStatus = findViewById(R.id.courseViewStatusText);
-            courseStatus.setText(courseToView.getStatus().getName());
+            courseStatus.setText(courseToView.getStatus());
+            TextView mentorName = findViewById(R.id.courseViewMentorNameField);
+            mentorName.setText(courseToView.getMentorName());
+            TextView mentorPhone = findViewById(R.id.courseViewMentorPhoneField);
+            mentorPhone.setText(courseToView.getMentorPhone());
+            TextView mentorEmail = findViewById(R.id.courseViewMentorEmailField);
+            mentorEmail.setText(courseToView.getMentorEmail());
         }
     }
-    private void mentorButtonClick() {
-        final long mentorId = courseToView.getMentor().getId();
-        QM.open();
-        Mentor mentor = QM.selectMentor(mentorId);
-        QM.close();
-        if(mentor.getName() == null) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setMessage("Would you like to create or select a new mentor for this course?");
-            builder.setCancelable(true);
-            builder.setPositiveButton(
-                    "Create",
-                    new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            Intent intent = new Intent(CourseView.this, MentorEdit.class);
-                            intent.putExtra(TermDbHandler.MENTOR_ID, mentorId);
-                            startActivity(intent);
-                        }
-                    });
-            builder.setNeutralButton(
-                    "Select",
-                    new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            Intent intent = new Intent(CourseView.this, MentorSelect.class);
-                            startActivity(intent);
-                        }
-                    });
-            builder.setNegativeButton(
-                    "Cancel",
-                    new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            dialog.cancel();
-                        }
-                    });
 
-            AlertDialog alert11 = builder.create();
-            alert11.show();
-        }else {
-            Intent intent = new Intent(CourseView.this, NoteView.class);
-            intent.putExtra(TermDbHandler.COURSE_ID, courseId);
-            startActivity(intent);
-        }
-        Intent intent = new Intent(CourseView.this, MentorView.class);
-        intent.putExtra(TermDbHandler.MENTOR_ID, courseToView.getMentor().getId());
-        startActivity(intent);
-    }
     private void noteButtonClick() {
         QM.open();
         Note note = QM.selectNote(courseId);

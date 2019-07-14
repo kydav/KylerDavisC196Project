@@ -55,7 +55,7 @@ public class CourseAdapter extends ArrayAdapter<Course> {
         end.setText(currentCourse.getEndDate());
 
         TextView status = (TextView) listItem.findViewById(R.id.course_status);
-        status.setText(currentCourse.getStatus().getName());
+        status.setText(currentCourse.getStatus());
 
         return listItem;
     }

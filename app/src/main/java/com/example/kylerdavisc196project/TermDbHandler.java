@@ -30,7 +30,6 @@ public class TermDbHandler extends SQLiteOpenHelper {
     public static final AssessmentType assessTypePerformance = new AssessmentType(1, "Performance");
     public static final AssessmentType assessTypeObjective = new AssessmentType(2, "Objective");
 
-
     //Term Table
     public static final String TABLE_TERM = "term";
     public static final String TERM_ID = "termId";
@@ -46,20 +45,6 @@ public class TermDbHandler extends SQLiteOpenHelper {
                     + TERM_START_DATE + " DATETIME, "
                     + TERM_END_DATE + " DATETIME)";
 
-    //Mentor Table
-    public static final String TABLE_MENTOR = "mentor";
-    public static final String MENTOR_ID = "mentorId";
-    public static final String MENTOR_NAME = "courseMentorName";
-    public static final String MENTOR_PHONE = "courseMentorPhone";
-    public static final String MENTOR_EMAIL = "courseMentorEmail";
-
-    //Mentor Table Create
-    private static final String CREATE_MENTOR_TABLE =
-            "CREATE TABLE IF NOT EXISTS " + TABLE_MENTOR + " ("
-                    + MENTOR_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-                    + MENTOR_NAME + " TEXT, "
-                    + MENTOR_PHONE + " TEXT, "
-                    + MENTOR_EMAIL + " TEXT)";
     //Status Table
     public static final String TABLE_STATUS = "status";
     public static final String STATUS_ID = "statusId";
@@ -78,8 +63,10 @@ public class TermDbHandler extends SQLiteOpenHelper {
     public static final String COURSE_DESCRIPTION = "courseDescription";
     public static final String COURSE_START_DATE = "courseStartDate";
     public static final String COURSE_END_DATE = "courseEndDate";
-    public static final String COURSE_MENTOR_ID = "courseMentorId";
-    public static final String COURSE_STATUS_ID = "courseStatus";
+    public static final String COURSE_MENTOR_NAME = "courseMentorName";
+    public static final String COURSE_MENTOR_PHONE = "courseMentorPhone";
+    public static final String COURSE_MENTOR_EMAIL = "courseMentorEmail";
+    public static final String COURSE_STATUS = "courseStatus";
     public static final String COURSE_TERM_ID = "courseTermId";
 
     //Course Table Create
@@ -90,12 +77,13 @@ public class TermDbHandler extends SQLiteOpenHelper {
             + COURSE_DESCRIPTION + " TEXT, "
             + COURSE_START_DATE + " DATE, "
             + COURSE_END_DATE + " DATE, "
-            + COURSE_MENTOR_ID + " INTEGER, "
-            + COURSE_STATUS_ID + " INTEGER, "
+            + COURSE_MENTOR_NAME + " TEXT, "
+            + COURSE_MENTOR_PHONE + " TEXT, "
+            + COURSE_MENTOR_EMAIL + " TEXT, "
+            + COURSE_STATUS + " TEXT, "
             + COURSE_TERM_ID + " INTEGER,"
-            + "FOREIGN KEY ("+COURSE_MENTOR_ID+") REFERENCES " + TABLE_MENTOR + "("+MENTOR_ID+") ON DELETE CASCADE,"
-            + "FOREIGN KEY ("+COURSE_STATUS_ID+") REFERENCES " + TABLE_STATUS + "("+STATUS_ID+") ON DELETE CASCADE,"
-            + "FOREIGN KEY ("+COURSE_TERM_ID+") REFERENCES " + TABLE_COURSE + "("+TERM_ID+") ON DELETE CASCADE)";
+            + "FOREIGN KEY ("+COURSE_TERM_ID+") REFERENCES " + TABLE_TERM + "("+TERM_ID+") ON DELETE CASCADE)";
+
     //Assessment Type Table
     public static final String TABLE_ASSESSMENT_TYPE = "assessmentType";
     public static final String ASSESSMENT_TYPE_ID = "assessmentTypeId";
@@ -123,7 +111,6 @@ public class TermDbHandler extends SQLiteOpenHelper {
             + ASSESSMENT_DUE_DATE + " DATE, "
             + ASSESSMENT_ASSESSMENT_TYPE_ID +  " INTEGER, "
             + ASSESSMENT_COURSE_ID + " INTEGER,"
-            + "FOREIGN KEY ("+ASSESSMENT_ASSESSMENT_TYPE_ID+") REFERENCES " + TABLE_ASSESSMENT_TYPE + "("+ASSESSMENT_TYPE_ID+") ON DELETE CASCADE,"
             + "FOREIGN KEY ("+ASSESSMENT_COURSE_ID+") REFERENCES " + TABLE_COURSE + "("+COURSE_ID+") ON DELETE CASCADE)";
 
     //Note Table
@@ -182,7 +169,6 @@ public class TermDbHandler extends SQLiteOpenHelper {
         try {
             db.execSQL(CREATE_TERM_TABLE);
             db.execSQL(CREATE_COURSE_TABLE);
-            db.execSQL(CREATE_MENTOR_TABLE);
             db.execSQL(CREATE_STATUS_TABLE);
             db.insert(TABLE_STATUS, null, planToTake);
             db.insert(TABLE_STATUS, null, inProgress);
@@ -205,7 +191,6 @@ public class TermDbHandler extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_TERM);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_COURSE);
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_MENTOR);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_STATUS);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_ASSESSMENT);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_ASSESSMENT_TYPE);

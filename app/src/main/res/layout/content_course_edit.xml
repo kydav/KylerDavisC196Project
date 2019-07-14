@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".CourseEdit"
+    tools:showIn="@layout/activity_course_edit">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/courseEditName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="@string/course_name"
+            android:inputType="textPersonName" />
+
+        <EditText
+            android:id="@+id/courseEditDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:gravity="start|top"
+            android:hint="@string/course_description"
+            android:inputType="textMultiLine" />
+
+        <DatePicker
+            android:id="@+id/courseEditStartDate"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:calendarViewShown="false"
+            android:datePickerMode="spinner"
+            android:endYear="2025"
+            android:startYear="2019" />
+
+        <DatePicker
+            android:id="@+id/courseEditEndDate"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:calendarViewShown="false"
+            android:datePickerMode="spinner"
+            android:endYear="2025"
+            android:startYear="2019" />
+
+        <Spinner
+            android:id="@+id/courseEditStatusSpinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:prompt="@string/course_status"
+            android:spinnerMode="dialog" />
+
+        <EditText
+            android:id="@+id/courseEditMentorName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="@string/mentor_name"
+            android:inputType="textPersonName" />
+
+        <EditText
+            android:id="@+id/courseEditMentorPhone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="@string/mentor_phone"
+            android:inputType="phone" />
+
+        <EditText
+            android:id="@+id/courseEditMentorEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="@string/mentor_email"
+            android:inputType="textEmailAddress" />
+
+        <Button
+            android:id="@+id/courseEditSaveButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/save"
+            android:onClick="saveCourse"/>
+    </LinearLayout>
+</android.support.v4.widget.NestedScrollView>
