@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.kylerdavisc196project">
+    package="com.wgu.kylerdavisc196project">
 
     <application
         android:allowBackup="true"
@@ -10,42 +10,56 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".CourseEdit"
+            android:name="com.wgu.kylerdavisc196project.AssessmentView"
+            android:label="@string/title_activity_assessment_view"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name="com.wgu.kylerdavisc196project.AssessmentEdit"
+            android:label="@string/title_activity_assessment_edit"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustResize"/>
+        <activity
+            android:name="com.wgu.kylerdavisc196project.AssessmentList"
+            android:label="@string/title_activity_assessment_list"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <receiver
+            android:name="com.wgu.kylerdavisc196project.MyReceiver"
+            android:enabled="true"
+            android:exported="true" />
+
+        <activity
+            android:name="com.wgu.kylerdavisc196project.CourseEdit"
             android:label="@string/title_activity_course_edit"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="adjustResize"></activity>
+            android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".NoteEdit"
+            android:name="com.wgu.kylerdavisc196project.NoteEdit"
             android:label="@string/title_activity_note_edit"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".NoteView"
+            android:name="com.wgu.kylerdavisc196project.NoteView"
             android:label="@string/title_activity_note_view"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".Alert"
-            android:label="@string/title_activity_alert"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".TermEdit"
+            android:name="com.wgu.kylerdavisc196project.TermEdit"
             android:label="@string/title_activity_the_term_edit"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".CourseView"
+            android:name="com.wgu.kylerdavisc196project.CourseView"
             android:label="@string/title_activity_the_course_view"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".AssessmentView" />
-        <activity android:name=".TermCreate" />
         <activity
-            android:name=".TermView"
+            android:name="com.wgu.kylerdavisc196project.TermView"
             android:label="@string/title_activity_term_view"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".TermList"
+            android:name="com.wgu.kylerdavisc196project.TermList"
             android:label="@string/title_activity_term_list"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".MainActivity"
+            android:name="com.wgu.kylerdavisc196project.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>

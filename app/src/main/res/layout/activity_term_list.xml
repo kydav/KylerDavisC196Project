@@ -24,17 +24,13 @@
         app:layout_anchor="@+id/fab"
         app:layout_anchorGravity="end|center"/>
 
-
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
+    <LinearLayout
+        android:id="@+id/rootContainer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        app:fabSize="auto"
-        app:srcCompat="@android:drawable/ic_menu_add" />
-
+        android:orientation="vertical"
+        android:visibility="visible"></LinearLayout>
 
 
 </android.support.design.widget.CoordinatorLayout>

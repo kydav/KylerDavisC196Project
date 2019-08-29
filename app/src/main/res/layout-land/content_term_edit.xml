@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,89 +8,54 @@
     tools:context=".TermEdit"
     tools:showIn="@layout/activity_term_edit">
 
-    <EditText
-        android:id="@+id/termEditTitleField"
-        android:layout_width="300dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="15dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="15dp"
-        android:ems="10"
-        android:importantForAutofill="no"
-        android:inputType="textPersonName"
-        app:layout_constraintStart_toEndOf="@+id/editTermTitle"
-        app:layout_constraintTop_toTopOf="parent" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/editTermTitle"
-        android:layout_width="260dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="100dp"
-        android:layout_marginLeft="100dp"
-        android:layout_marginTop="15dp"
-        android:text="@string/term_title"
-        android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <EditText
+            android:id="@+id/termEditTitleField"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="@string/term_name"
+            android:importantForAutofill="no"
+            android:inputType="textPersonName" />
 
-    <TextView
-        android:id="@+id/termEditStartDate"
-        android:layout_width="260dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="100dp"
-        android:layout_marginLeft="100dp"
-        android:layout_marginTop="15dp"
-        android:text="@string/start_date"
-        android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTermTitle" />
+        <TextView
+            android:id="@+id/termEditStartDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/term_start_date"
+            android:textSize="18sp" />
 
-    <TextView
-        android:id="@+id/termEditEndDate"
-        android:layout_width="260dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="100dp"
-        android:layout_marginLeft="100dp"
-        android:layout_marginTop="15dp"
-        android:text="@string/end_date"
-        android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/termEditStartDate" />
+        <DatePicker
+            android:id="@+id/termEditStartDatePicker"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:calendarViewShown="false"
+            android:datePickerMode="spinner"/>
 
-    <EditText
-        android:id="@+id/termEditStartDateField"
-        android:layout_width="300dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="15dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="15dp"
-        android:ems="10"
-        android:importantForAutofill="no"
-        android:inputType="date"
-        app:layout_constraintStart_toEndOf="@+id/termEditStartDate"
-        app:layout_constraintTop_toBottomOf="@+id/termEditTitleField" />
+        <TextView
+            android:id="@+id/termEditEndDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/term_end_date"
+            android:textSize="18sp" />
 
-    <EditText
-        android:id="@+id/termEditEndDateField"
-        android:layout_width="300dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="15dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="15dp"
-        android:ems="10"
-        android:importantForAutofill="no"
-        android:inputType="date"
-        app:layout_constraintStart_toEndOf="@+id/termEditEndDate"
-        app:layout_constraintTop_toBottomOf="@+id/termEditStartDateField" />
+        <DatePicker
+            android:id="@+id/termEditEndDatePicker"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:calendarViewShown="false"
+            android:datePickerMode="spinner" />
 
-    <Button
-        android:id="@+id/termEditSaveButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginRight="20dp"
-        android:text="@string/save"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/termEditEndDateField" />
-</android.support.constraint.ConstraintLayout>
+        <Button
+            android:id="@+id/termEditSaveButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="saveTerm"
+            android:text="@string/save" />
+    </LinearLayout>
+
+</android.support.v4.widget.NestedScrollView>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".AssessmentView"
+    tools:showIn="@layout/activity_assessment_view">
+
+    <TextView
+        android:id="@+id/assViewName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:gravity="center"
+        android:text="@string/assessment_name"
+        android:textSize="36sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/assViewDueDateTitle"
+        android:layout_width="100dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="75dp"
+        android:layout_marginTop="50dp"
+        android:text="@string/due_date"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/assViewName" />
+
+    <TextView
+        android:id="@+id/assViewDueDate"
+        android:layout_width="250dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="125dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/assViewDueDateTitle" />
+
+    <TextView
+        android:id="@+id/assViewTypeTitle"
+        android:layout_width="175dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="75dp"
+        android:layout_marginTop="35dp"
+        android:text="@string/assessment_type"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/assViewDueDate" />
+
+    <TextView
+        android:id="@+id/assViewType"
+        android:layout_width="250dp"
+        android:layout_height="31dp"
+        android:layout_marginStart="125dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/assViewTypeTitle" />
+</android.support.constraint.ConstraintLayout>

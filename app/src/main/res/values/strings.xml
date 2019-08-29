@@ -138,4 +138,16 @@
     </string>
     <string name="action_settings">Settings</string>
     <string name="course_name">Course Name</string>
+    <string name="channel_name">Term Scheduler Notification Channel</string>
+    <string name="channel_description">Channel for scheduling Term Scheduler notifications</string>
+    <string name="title_activity_assessment_list">AssessmentList</string>
+    <string name="title_activity_assessment_edit">AssessmentEdit</string>
+    <string name="term_name">Term Name</string>
+    <string name="assessment_name">Assessment Name</string>
+    <string name="due_date">Due Date</string>
+    <string name="title_activity_assessment_view">AssessmentView</string>
+    <string name="assessment_type">Assessment Type</string>
+    <string name="edit_assessment">Edit Assessment</string>
+    <string name="delete_assessment">Delete Assessment</string>
+    <string name="share_note">Share Note</string>
 </resources>
