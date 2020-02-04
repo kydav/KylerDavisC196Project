@@ -6,4 +6,6 @@ to both assessments and courses.
 
 The project was developed in Java, and uses SQLite for a local database. 
 
-A storyboard for the project can be found here: https://whimsical.com/WZWGygDP3UxnXyjoaBzYB7
+A storyboard for the project can be found here: https://whimsical.com/WZWGygDP3UxnXyjoaBzYB7 or below:
+
+![Repo List](StoryBoard.png)
